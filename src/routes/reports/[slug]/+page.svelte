@@ -1,10 +1,17 @@
 <script lang="ts">
   import { page } from '$app/stores';
   import { getCSV } from '$lib/utils';
+  import { format } from 'd3-format';
   import { onMount } from 'svelte';
 
   const iso3 = $page.params.slug.toUpperCase();
   const today = new Date();
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'UTC',
+  };
 
   let metadata = {};
   let checks = [];
@@ -41,7 +48,7 @@
   COD-AB Data Quality Report:<br />
   {metadata.name}
 </h2>
-<p>Generated on: {today}</p>
+<p>Generated on: {today.toLocaleDateString('en-GB', options)}</p>
 <div class="img-grid">
   {#each admin_levels as level}
     <div>
@@ -64,6 +71,14 @@
       <a href={metadata.hdx_url}>HDX</a>
     {/if}
   </div>
+  <div><b>Downloads:</b></div>
+  <div>
+    {#each admin_levels as level}
+      <a href={`https://cod-data.fieldmaps.io/boundaries/${iso3.toLowerCase()}_adm${level}.gpkg`}
+        >{`${iso3.toLowerCase()}_adm${level}.gpkg`}</a
+      >&nbsp
+    {/each}
+  </div>
   <div><b>COD Quality:</b></div>
   <div>{get_cod_quality(metadata.itos_service)}</div>
   <div><b>ISO-3 Code:</b></div>
@@ -78,10 +93,10 @@
   <div>{metadata.hdx_license}</div>
   <div><b>Error free layers:</b></div>
   <div>
-    {scores.error_free * (levels + 1)} of {levels + 1}
+    {format('.0')(scores.error_free * (levels + 1))} of {levels + 1}
   </div>
   <div><b>Overall Score:</b></div>
-  <div>{scores.score * 100}%</div>
+  <div>{format('.0%')(scores.score)}</div>
 </div>
 
 <div class="pagebreak" />
@@ -94,7 +109,7 @@
     WGS84 CRS (EPSG:4326), and containing no self-overlapping polygons.
   </div>
   <div>
-    {scores.geometry_valid * (levels + 1)} of {levels + 1}
+    {format('.0')(scores.geometry_valid * (levels + 1))} of {levels + 1}
   </div>
 </div>
 <div class="score">
@@ -103,7 +118,7 @@
     belonging to only a single parent (does not overlap between mutliple higher levels).
   </div>
   <div>
-    {scores.geometry_hierarchy * (levels + 1)} of {levels + 1}
+    {format('.0')(scores.geometry_hierarchy * (levels + 1))} of {levels + 1}
   </div>
 </div>
 <div class="score">
@@ -112,7 +127,7 @@
     are partial layers which only cover a sub-section.
   </div>
   <div>
-    {scores.geometry_bounds * (levels + 1)} of {levels + 1}
+    {format('.0')(scores.geometry_bounds * (levels + 1))} of {levels + 1}
   </div>
 </div>
 <div class="score">
@@ -121,19 +136,19 @@
     representing water bodies whereas other layers have them filled out.
   </div>
   <div>
-    {scores.geometry_area * (levels + 1)} of {levels + 1}
+    {format('.0')(scores.geometry_area * (levels + 1))} of {levels + 1}
   </div>
 </div>
 <div class="score">
   <div>Layers which have at least 1 language column detected.</div>
   <div>
-    {scores.languages * (levels + 1)} of {levels + 1}
+    {format('.0')(scores.languages * (levels + 1))} of {levels + 1}
   </div>
 </div>
 <div class="score">
   <div>Layers which have been updated within the last 3 years.</div>
   <div>
-    {scores.dates * (levels + 1)} of {levels + 1}
+    {format('.0')(scores.dates * (levels + 1))} of {levels + 1}
   </div>
 </div>
 
@@ -218,9 +233,10 @@
 <div class="checks-grid checks-grid-{levels}">
   {#each admin_levels as level}
     <div>
-      {(checks[level]['number_of_missing_records'] /
-        (checks[level]['total_number_of_records'] || 1)) *
-        100}%
+      {format('.0%')(
+        checks[level]['number_of_missing_records'] /
+          (checks[level]['total_number_of_records'] || 1),
+      )}
     </div>
   {/each}
 </div>
@@ -228,8 +244,10 @@
 <div class="checks-grid checks-grid-{levels}">
   {#each admin_levels as level}
     <div>
-      {#each range(checks[level]['date_count']) as idx}
-        <div>{new Date(checks[level]['date_' + (idx + 1)])}</div>
+      {#each range(checks[level]['date_count'] - 1) as idx}
+        <div>
+          {new Date(checks[level]['date_' + (idx + 1)]).toLocaleDateString('en-GB', options)}
+        </div>
       {/each}
       {#if checks[level]['date_count'] === 0}
         <div>No Date</div>
@@ -241,8 +259,10 @@
 <div class="checks-grid checks-grid-{levels}">
   {#each admin_levels as level}
     <div>
-      {#each range(checks[level]['update_count']) as idx}
-        <div>{new Date(checks[level]['update_' + (idx + 1)])}</div>
+      {#each range(checks[level]['update_count'] - 1) as idx}
+        <div>
+          {new Date(checks[level]['update_' + (idx + 1)]).toLocaleDateString('en-GB', options)}
+        </div>
       {/each}
       {#if checks[level]['update_count'] === 0}
         <div>No Date</div>
@@ -254,8 +274,8 @@
 <div class="checks-grid checks-grid-{levels}">
   {#each admin_levels as level}
     <div>
-      {#each range(checks[level]['language_count']) as idx}
-        <span>{checks[level]['language_' + (idx + 1)]}</span>
+      {#each range(checks[level]['language_count'] - 1) as idx}
+        <span>{checks[level]['language_' + (idx + 1)]}</span>&nbsp;
       {/each}
       {#if checks[level]['language_count'] === 0}
         <div>No Language</div>
@@ -267,7 +287,6 @@
 <style>
   @page {
     size: A4 portrait;
-    margin: 2.5cm;
   }
 
   @media print {
