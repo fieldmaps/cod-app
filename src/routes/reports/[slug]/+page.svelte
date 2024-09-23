@@ -44,245 +44,247 @@
   });
 </script>
 
-<h2>
-  COD-AB Data Quality Report:<br />
-  {metadata.name}
-</h2>
-<p>Generated on: {today.toLocaleDateString('en-GB', options)}</p>
-<div class="img-grid">
-  {#each admin_levels as level}
-    <div>
-      Admin {level}
-      <img
-        src={`https://cod-data.fieldmaps.io/images/${iso3.toLowerCase()}_adm${level}.png`}
-        alt="not available"
-      />
-    </div>
-  {/each}
-</div>
-<h2>Metadata</h2>
-<div class="metadata-grid">
-  <div><b>Links:</b></div>
-  <div>
-    {#if metadata.itos_url}
-      <a href={metadata.itos_url}>ITOS</a>
-    {/if}
-    {#if metadata.hdx_url}
-      <a href={metadata.hdx_url}>HDX</a>
-    {/if}
-  </div>
-  <div><b>Downloads:</b></div>
-  <div>
+<main>
+  <h2>
+    COD-AB Data Quality Report:<br />
+    {metadata.name}
+  </h2>
+  <p>Generated on: {today.toLocaleDateString('en-GB', options)}</p>
+  <div class="img-grid">
     {#each admin_levels as level}
-      <a href={`https://cod-data.fieldmaps.io/boundaries/${iso3.toLowerCase()}_adm${level}.gpkg`}
-        >{`${iso3.toLowerCase()}_adm${level}.gpkg`}</a
-      >&nbsp
+      <div>
+        Admin {level}
+        <img
+          src={`https://cod-data.fieldmaps.io/images/${iso3.toLowerCase()}_adm${level}.png`}
+          alt="not available"
+        />
+      </div>
     {/each}
   </div>
-  <div><b>COD Quality:</b></div>
-  <div>{get_cod_quality(metadata.itos_service)}</div>
-  <div><b>ISO-3 Code:</b></div>
-  <div>{metadata.iso3}</div>
-  <div><b>ISO-2 Code:</b></div>
-  <div>{metadata.iso2}</div>
-  <div><b>Data Contributor:</b></div>
-  <div>{metadata.hdx_source_2}</div>
-  <div><b>Data Source:</b></div>
-  <div>{metadata.hdx_source_1}</div>
-  <div><b>Licence:</b></div>
-  <div>{metadata.hdx_license}</div>
-  <div><b>Error free layers:</b></div>
-  <div>
-    {format('.0')(scores.error_free * (levels + 1))} of {levels + 1}
-  </div>
-  <div><b>Overall Score:</b></div>
-  <div>{format('.0%')(scores.score)}</div>
-</div>
-
-<div class="pagebreak" />
-
-<h2>Scores</h2>
-<div class="score">
-  <div>
-    Layers which have valid geometry. Valid geometry is defined by having no empty geometries, only
-    containing polygons (no points or lines), not containing any self-intersecting rings, using
-    WGS84 CRS (EPSG:4326), and containing no self-overlapping polygons.
-  </div>
-  <div>
-    {format('.0')(scores.geometry_valid * (levels + 1))} of {levels + 1}
-  </div>
-</div>
-<div class="score">
-  <div>
-    Layers which have perfect hierarchal nesting. Hierarchy is defined by each sub-national unit
-    belonging to only a single parent (does not overlap between mutliple higher levels).
-  </div>
-  <div>
-    {format('.0')(scores.geometry_hierarchy * (levels + 1))} of {levels + 1}
-  </div>
-</div>
-<div class="score">
-  <div>
-    Layers which all share the same geometric bounding box. Layers not sharing the same bounding box
-    are partial layers which only cover a sub-section.
-  </div>
-  <div>
-    {format('.0')(scores.geometry_bounds * (levels + 1))} of {levels + 1}
-  </div>
-</div>
-<div class="score">
-  <div>
-    Layers which all share the same area. Layers not sharing the same area may have empty areas
-    representing water bodies whereas other layers have them filled out.
-  </div>
-  <div>
-    {format('.0')(scores.geometry_area * (levels + 1))} of {levels + 1}
-  </div>
-</div>
-<div class="score">
-  <div>Layers which have at least 1 language column detected.</div>
-  <div>
-    {format('.0')(scores.languages * (levels + 1))} of {levels + 1}
-  </div>
-</div>
-<div class="score">
-  <div>Layers which have been updated within the last 3 years.</div>
-  <div>
-    {format('.0')(scores.dates * (levels + 1))} of {levels + 1}
-  </div>
-</div>
-
-<div class="pagebreak" />
-
-<h2>Checks</h2>
-<div class="checks-grid checks-grid-{levels}">
-  {#each admin_levels as level}
-    <div>Admin {level}</div>
-  {/each}
-</div>
-<div>Are there any empty geometries contained within the layer? (Should be No)</div>
-<div class="checks-grid checks-grid-{levels}">
-  {#each admin_levels as level}
-    <div>{checks[level]['geom_not_empty'] ? 'No' : 'Yes'}</div>
-  {/each}
-</div>
-<div>Are all geometries in the layer of type polygon? (Should be Yes)</div>
-<div class="checks-grid checks-grid-{levels}">
-  {#each admin_levels as level}
-    <div>{checks[level]['geom_is_polygon'] ? 'Yes' : 'No'}</div>
-  {/each}
-</div>
-<div>
-  Are all polygons 2 dimensional? In other words, do they contain only XY coordinates and no Z?
-  (Should be Yes)
-</div>
-<div class="checks-grid checks-grid-{levels}">
-  {#each admin_levels as level}
-    <div>{checks[level]['geom_is_polygon'] ? 'Yes' : 'No'}</div>
-  {/each}
-</div>
-<div>Are all geometries valid? (Should be Yes)</div>
-<div class="checks-grid checks-grid-{levels}">
-  {#each admin_levels as level}
-    <div>{checks[level]['geom_is_valid'] ? 'Yes' : 'No'}</div>
-  {/each}
-</div>
-<div>If any geometries are invalid, how come?</div>
-<div class="checks-grid checks-grid-{levels}">
-  {#each admin_levels as level}
-    <div>{checks[level]['geom_invalid_reason'] || 'N/A'}</div>
-  {/each}
-</div>
-<div>What EPSG projection is used in the layer? (Should be 4326)</div>
-<div class="checks-grid checks-grid-{levels}">
-  {#each admin_levels as level}
-    <div>{checks[level]['geom_proj']}</div>
-  {/each}
-</div>
-<div>How large is the layer in square kilometers? (All values should be the same)</div>
-<div class="checks-grid checks-grid-{levels}">
-  {#each admin_levels as level}
-    <div>{checks[level]['geom_area_km']}</div>
-  {/each}
-</div>
-<div>How many polygons overlap each other within the same layer? (Should be 0)</div>
-<div class="checks-grid checks-grid-{levels}">
-  {#each admin_levels as level}
-    <div>{checks[level]['geom_overlaps_self']}</div>
-  {/each}
-</div>
-<div>
-  How many polygons are not hierarchal, meaning they cross the border between two parent boundaries?
-  (Should be 0)
-</div>
-<div class="checks-grid checks-grid-{levels}">
-  {#each admin_levels as level}
-    <div>{checks[level]['geom_overlaps_parent']}</div>
-  {/each}
-</div>
-
-<div class="pagebreak" />
-
-<h2>Checks</h2>
-<div class="checks-grid checks-grid-{levels}">
-  {#each admin_levels as level}
-    <div>Admin {level}</div>
-  {/each}
-</div>
-<div>What percentage of cells are empty?</div>
-<div class="checks-grid checks-grid-{levels}">
-  {#each admin_levels as level}
+  <h2>Metadata</h2>
+  <div class="metadata-grid">
+    <div><b>Links:</b></div>
     <div>
-      {format('.0%')(
-        checks[level]['number_of_missing_records'] /
-          (checks[level]['total_number_of_records'] || 1),
-      )}
-    </div>
-  {/each}
-</div>
-<div>What is the date of the dataset's source?</div>
-<div class="checks-grid checks-grid-{levels}">
-  {#each admin_levels as level}
-    <div>
-      {#each range(checks[level]['date_count'] - 1) as idx}
-        <div>
-          {new Date(checks[level]['date_' + (idx + 1)]).toLocaleDateString('en-GB', options)}
-        </div>
-      {/each}
-      {#if checks[level]['date_count'] === 0}
-        <div>No Date</div>
+      {#if metadata.itos_url}
+        <a href={metadata.itos_url}>ITOS</a>
+      {/if}
+      {#if metadata.hdx_url}
+        <a href={metadata.hdx_url}>HDX</a>
       {/if}
     </div>
-  {/each}
-</div>
-<div>When was the dataset last updated?</div>
-<div class="checks-grid checks-grid-{levels}">
-  {#each admin_levels as level}
+    <div><b>Downloads:</b></div>
     <div>
-      {#each range(checks[level]['update_count'] - 1) as idx}
-        <div>
-          {new Date(checks[level]['update_' + (idx + 1)]).toLocaleDateString('en-GB', options)}
-        </div>
+      {#each admin_levels as level}
+        <a href={`https://cod-data.fieldmaps.io/boundaries/${iso3.toLowerCase()}_adm${level}.gpkg`}
+          >{`${iso3.toLowerCase()}_adm${level}.gpkg`}</a
+        >&nbsp
       {/each}
-      {#if checks[level]['update_count'] === 0}
-        <div>No Date</div>
-      {/if}
     </div>
-  {/each}
-</div>
-<div>What languages are used in the dataset?</div>
-<div class="checks-grid checks-grid-{levels}">
-  {#each admin_levels as level}
+    <div><b>COD Quality:</b></div>
+    <div>{get_cod_quality(metadata.itos_service)}</div>
+    <div><b>ISO-3 Code:</b></div>
+    <div>{metadata.iso3}</div>
+    <div><b>ISO-2 Code:</b></div>
+    <div>{metadata.iso2}</div>
+    <div><b>Data Contributor:</b></div>
+    <div>{metadata.hdx_source_2}</div>
+    <div><b>Data Source:</b></div>
+    <div>{metadata.hdx_source_1}</div>
+    <div><b>Licence:</b></div>
+    <div>{metadata.hdx_license}</div>
+    <div><b>Error free layers:</b></div>
     <div>
-      {#each range(checks[level]['language_count'] - 1) as idx}
-        <span>{checks[level]['language_' + (idx + 1)]}</span>&nbsp;
-      {/each}
-      {#if checks[level]['language_count'] === 0}
-        <div>No Language</div>
-      {/if}
+      {format('.0')(scores.error_free * (levels + 1))} of {levels + 1}
     </div>
-  {/each}
-</div>
+    <div><b>Overall Score:</b></div>
+    <div>{format('.0%')(scores.score)}</div>
+  </div>
+
+  <div class="pagebreak" />
+
+  <h2>Scores</h2>
+  <div class="score">
+    <div>
+      Layers which have valid geometry. Valid geometry is defined by having no empty geometries,
+      only containing polygons (no points or lines), not containing any self-intersecting rings,
+      using WGS84 CRS (EPSG:4326), and containing no self-overlapping polygons.
+    </div>
+    <div>
+      {format('.0')(scores.geometry_valid * (levels + 1))} of {levels + 1}
+    </div>
+  </div>
+  <div class="score">
+    <div>
+      Layers which have perfect hierarchal nesting. Hierarchy is defined by each sub-national unit
+      belonging to only a single parent (does not overlap between mutliple higher levels).
+    </div>
+    <div>
+      {format('.0')(scores.geometry_hierarchy * (levels + 1))} of {levels + 1}
+    </div>
+  </div>
+  <div class="score">
+    <div>
+      Layers which all share the same geometric bounding box. Layers not sharing the same bounding
+      box are partial layers which only cover a sub-section.
+    </div>
+    <div>
+      {format('.0')(scores.geometry_bounds * (levels + 1))} of {levels + 1}
+    </div>
+  </div>
+  <div class="score">
+    <div>
+      Layers which all share the same area. Layers not sharing the same area may have empty areas
+      representing water bodies whereas other layers have them filled out.
+    </div>
+    <div>
+      {format('.0')(scores.geometry_area * (levels + 1))} of {levels + 1}
+    </div>
+  </div>
+  <div class="score">
+    <div>Layers which have at least 1 language column detected.</div>
+    <div>
+      {format('.0')(scores.languages * (levels + 1))} of {levels + 1}
+    </div>
+  </div>
+  <div class="score">
+    <div>Layers which have been updated within the last 3 years.</div>
+    <div>
+      {format('.0')(scores.dates * (levels + 1))} of {levels + 1}
+    </div>
+  </div>
+
+  <div class="pagebreak" />
+
+  <h2>Checks</h2>
+  <div class="checks-grid checks-grid-{levels}">
+    {#each admin_levels as level}
+      <div>Admin {level}</div>
+    {/each}
+  </div>
+  <div>Are there any empty geometries contained within the layer? (Should be No)</div>
+  <div class="checks-grid checks-grid-{levels}">
+    {#each admin_levels as level}
+      <div>{checks[level]['geom_not_empty'] ? 'No' : 'Yes'}</div>
+    {/each}
+  </div>
+  <div>Are all geometries in the layer of type polygon? (Should be Yes)</div>
+  <div class="checks-grid checks-grid-{levels}">
+    {#each admin_levels as level}
+      <div>{checks[level]['geom_is_polygon'] ? 'Yes' : 'No'}</div>
+    {/each}
+  </div>
+  <div>
+    Are all polygons 2 dimensional? In other words, do they contain only XY coordinates and no Z?
+    (Should be Yes)
+  </div>
+  <div class="checks-grid checks-grid-{levels}">
+    {#each admin_levels as level}
+      <div>{checks[level]['geom_is_polygon'] ? 'Yes' : 'No'}</div>
+    {/each}
+  </div>
+  <div>Are all geometries valid? (Should be Yes)</div>
+  <div class="checks-grid checks-grid-{levels}">
+    {#each admin_levels as level}
+      <div>{checks[level]['geom_is_valid'] ? 'Yes' : 'No'}</div>
+    {/each}
+  </div>
+  <div>If any geometries are invalid, how come?</div>
+  <div class="checks-grid checks-grid-{levels}">
+    {#each admin_levels as level}
+      <div>{checks[level]['geom_invalid_reason'] || 'N/A'}</div>
+    {/each}
+  </div>
+  <div>What EPSG projection is used in the layer? (Should be 4326)</div>
+  <div class="checks-grid checks-grid-{levels}">
+    {#each admin_levels as level}
+      <div>{checks[level]['geom_proj']}</div>
+    {/each}
+  </div>
+  <div>How large is the layer in square kilometers? (All values should be the same)</div>
+  <div class="checks-grid checks-grid-{levels}">
+    {#each admin_levels as level}
+      <div>{checks[level]['geom_area_km']}</div>
+    {/each}
+  </div>
+  <div>How many polygons overlap each other within the same layer? (Should be 0)</div>
+  <div class="checks-grid checks-grid-{levels}">
+    {#each admin_levels as level}
+      <div>{checks[level]['geom_overlaps_self']}</div>
+    {/each}
+  </div>
+  <div>
+    How many polygons are not hierarchal, meaning they cross the border between two parent
+    boundaries? (Should be 0)
+  </div>
+  <div class="checks-grid checks-grid-{levels}">
+    {#each admin_levels as level}
+      <div>{checks[level]['geom_overlaps_parent']}</div>
+    {/each}
+  </div>
+
+  <div class="pagebreak" />
+
+  <h2>Checks</h2>
+  <div class="checks-grid checks-grid-{levels}">
+    {#each admin_levels as level}
+      <div>Admin {level}</div>
+    {/each}
+  </div>
+  <div>What percentage of cells are empty?</div>
+  <div class="checks-grid checks-grid-{levels}">
+    {#each admin_levels as level}
+      <div>
+        {format('.0%')(
+          checks[level]['number_of_missing_records'] /
+            (checks[level]['total_number_of_records'] || 1),
+        )}
+      </div>
+    {/each}
+  </div>
+  <div>What is the date of the dataset's source?</div>
+  <div class="checks-grid checks-grid-{levels}">
+    {#each admin_levels as level}
+      <div>
+        {#each range(checks[level]['date_count'] - 1) as idx}
+          <div>
+            {new Date(checks[level]['date_' + (idx + 1)]).toLocaleDateString('en-GB', options)}
+          </div>
+        {/each}
+        {#if checks[level]['date_count'] === 0}
+          <div>No Date</div>
+        {/if}
+      </div>
+    {/each}
+  </div>
+  <div>When was the dataset last updated?</div>
+  <div class="checks-grid checks-grid-{levels}">
+    {#each admin_levels as level}
+      <div>
+        {#each range(checks[level]['update_count'] - 1) as idx}
+          <div>
+            {new Date(checks[level]['update_' + (idx + 1)]).toLocaleDateString('en-GB', options)}
+          </div>
+        {/each}
+        {#if checks[level]['update_count'] === 0}
+          <div>No Date</div>
+        {/if}
+      </div>
+    {/each}
+  </div>
+  <div>What languages are used in the dataset?</div>
+  <div class="checks-grid checks-grid-{levels}">
+    {#each admin_levels as level}
+      <div>
+        {#each range(checks[level]['language_count'] - 1) as idx}
+          <span>{checks[level]['language_' + (idx + 1)]}</span>&nbsp;
+        {/each}
+        {#if checks[level]['language_count'] === 0}
+          <div>No Language</div>
+        {/if}
+      </div>
+    {/each}
+  </div>
+</main>
 
 <style>
   @page {
@@ -297,6 +299,11 @@
 
   :global(body) {
     font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Segoe UI Symbol';
+  }
+
+  main {
+    margin: auto;
+    width: 210mm;
   }
 
   .img-grid {
