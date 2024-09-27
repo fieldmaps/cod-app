@@ -1,18 +1,18 @@
 <script lang="ts">
   import { headers } from '$lib/consts';
+  import { sortDirection, sortIndex } from '$lib/stores';
   import { getCSVRows } from '$lib/utils';
   import { format } from 'd3-format';
   import { onMount } from 'svelte';
 
   let headerRow = [];
   let scores = [];
-  let sortIndex = 0;
-  let sort = 1;
 
   onMount(async () => {
     const rows = await getCSVRows('tables/scores');
     headerRow = rows[0];
     scores = rows.slice(1);
+    onClick();
   });
 
   function classifyScore(score: number) {
@@ -21,16 +21,20 @@
     return 'high';
   }
 
-  function onClick(index: number) {
-    if (sortIndex === index) {
-      sort = sort * -1;
-    } else {
-      sortIndex = index;
-      sort = 1;
+  function onClick(index?: number) {
+    if (typeof index === 'number') {
+      if ($sortIndex === index) {
+        $sortDirection = -$sortDirection;
+      } else {
+        $sortIndex = index;
+        $sortDirection = 1;
+      }
     }
+    const sortIdx = $sortIndex >= 0 ? $sortIndex : scores[0].length + $sortIndex;
     scores = scores.sort((a, b) => {
-      if (a[index] < b[index]) return -sort;
-      if (a[index] > b[index]) return sort;
+      if (a[sortIdx] < b[sortIdx]) return -$sortDirection;
+      if (a[sortIdx] > b[sortIdx]) return $sortDirection;
+      if (a[0] > b[0]) return 1;
       return 0;
     });
   }
