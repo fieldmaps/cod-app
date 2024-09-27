@@ -1,22 +1,23 @@
 <script lang="ts">
+  import { headers } from '$lib/consts';
   import { getCSVRows } from '$lib/utils';
   import { format } from 'd3-format';
   import { onMount } from 'svelte';
 
-  let headers = [];
+  let headerRow = [];
   let scores = [];
   onMount(async () => {
     const rows = await getCSVRows('tables/scores');
-    headers = rows[0];
+    headerRow = rows[0];
     scores = rows.slice(1);
   });
 </script>
 
 {#if scores.length}
-  <table>
+  <table class="table">
     <tr>
-      {#each headers as header}
-        <th>{header}</th>
+      {#each headerRow as header}
+        <th>{headers[header] || header}</th>
       {/each}
     </tr>
     {#each scores as score}
@@ -33,5 +34,6 @@
 <style>
   table {
     margin: auto;
+    border-spacing: 1rem 0.25rem;
   }
 </style>
