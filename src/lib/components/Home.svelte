@@ -13,8 +13,8 @@
   });
 
   function classifyScore(score: number) {
-    if (score < 1 / 3) return 'low';
-    if (score < 2 / 3) return 'medium';
+    if (score <= 0.333) return 'low';
+    if (score <= 0.667) return 'medium';
     return 'high';
   }
 </script>
