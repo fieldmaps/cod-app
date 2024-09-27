@@ -29,3 +29,9 @@
     {/each}
   </table>
 {/if}
+
+<style>
+  table {
+    margin: auto;
+  }
+</style>
