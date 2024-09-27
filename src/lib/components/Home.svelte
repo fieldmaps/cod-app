@@ -6,6 +6,9 @@
 
   let headerRow = [];
   let scores = [];
+  let sortIndex = 0;
+  let sort = 1;
+
   onMount(async () => {
     const rows = await getCSVRows('tables/scores');
     headerRow = rows[0];
@@ -17,20 +20,42 @@
     if (score <= 0.667) return 'medium';
     return 'high';
   }
+
+  function onClick(index: number) {
+    if (sortIndex === index) {
+      sort = sort * -1;
+    } else {
+      sortIndex = index;
+      sort = 1;
+    }
+    scores = scores.sort((a, b) => {
+      if (a[index] < b[index]) return -sort;
+      if (a[index] > b[index]) return sort;
+      return 0;
+    });
+  }
 </script>
 
 {#if scores.length}
   <table class="table">
     <tr>
-      {#each headerRow as header}
-        <th>{headers[header] || header}</th>
+      {#each headerRow as header, index}
+        <th on:click={() => onClick(index)}>
+          {headers[header] || header}
+        </th>
       {/each}
     </tr>
     {#each scores as score}
       <tr>
-        <td><a href={`/reports/${score[0].toLowerCase()}`}>{score[0]}</a></td>
+        <td>
+          <a href={`/reports/${score[0].toLowerCase()}`}>
+            {score[0]}
+          </a>
+        </td>
         {#each score.slice(1) as data}
-          <td class={classifyScore(data)}>{format('.0%')(data)}</td>
+          <td class={`cell ${classifyScore(data)}`}>
+            {format('.0%')(data)}
+          </td>
         {/each}
       </tr>
     {/each}
@@ -41,6 +66,12 @@
   table {
     margin: auto;
     border-spacing: 1rem 0.25rem;
+  }
+  th {
+    cursor: pointer;
+  }
+  .cell {
+    text-align: right;
   }
   .low {
     background-color: #ffc7ce;
