@@ -1,5 +1,7 @@
 <script lang="ts">
-  import Home from '$lib/components/Home.svelte';
+  import Header from '$lib/components/Header.svelte';
+  import Table from '$lib/components/Table.svelte';
 </script>
 
-<Home />
+<Header />
+<Table />

@@ -36,35 +36,40 @@
   }
 </script>
 
-{#if scores.length}
-  <table class="table">
-    <tr>
-      {#each headerRow as header, index}
-        <th on:click={() => onClick(index)}>
-          {headers[header] || header}
-        </th>
-      {/each}
-    </tr>
-    {#each scores as score}
+<section>
+  {#if scores.length}
+    <table class="table">
       <tr>
-        <td>
-          <a href={`/reports/${score[0].toLowerCase()}`}>
-            {score[0]}
-          </a>
-        </td>
-        {#each score.slice(1) as data}
-          <td class={`cell ${classifyScore(data)}`}>
-            {format('.0%')(data)}
-          </td>
+        {#each headerRow as header, index}
+          <th on:click={() => onClick(index)}>
+            {headers[header] || header}
+          </th>
         {/each}
       </tr>
-    {/each}
-  </table>
-{/if}
+      {#each scores as score}
+        <tr>
+          <td>
+            <a href={`/reports/${score[0].toLowerCase()}`}>
+              {score[0]}
+            </a>
+          </td>
+          {#each score.slice(1) as data}
+            <td class={`cell ${classifyScore(data)}`}>
+              {format('.0%')(data)}
+            </td>
+          {/each}
+        </tr>
+      {/each}
+    </table>
+  {/if}
+</section>
 
 <style>
+  section {
+    display: flex;
+    justify-content: center;
+  }
   table {
-    margin: auto;
     border-spacing: 1rem 0.25rem;
   }
   th {
