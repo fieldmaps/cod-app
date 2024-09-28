@@ -47,7 +47,7 @@
       {#each scores as score}
         <tr>
           <td>
-            <a href={`/reports/${score[0].toLowerCase()}`}>
+            <a href={`/report/${score[0].toLowerCase()}`}>
               {score[0]}
             </a>
           </td>
