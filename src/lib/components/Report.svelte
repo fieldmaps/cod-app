@@ -33,220 +33,231 @@
 </script>
 
 <main>
-  <h2>
-    COD-AB Data Quality Report:<br />
-    {metadata.name}
-  </h2>
-  <p>Generated on: {today.toLocaleDateString('en-GB', options)}</p>
-  <div class="img-grid">
-    {#each admin_levels as level}
-      <div>
-        <div>Admin {level}</div>
-        <a
-          href={`https://cod-data.fieldmaps.io/images/${iso3.toLowerCase()}_adm${level}.png`}
-          target="_blank"
-        >
-          <img
-            src={`https://cod-data.fieldmaps.io/images/${iso3.toLowerCase()}_adm${level}.png`}
-            alt="not available"
-          />
-        </a>
-      </div>
-    {/each}
-  </div>
-
-  <div class="pagebreak" />
-
-  <h2>Metadata</h2>
-  <div class="metadata-grid">
-    <div><b>Links:</b></div>
-    <div>
-      {#if metadata.itos_url}
-        <a href={metadata.itos_url} target="_blank">ITOS</a>
-      {/if}
-      {#if metadata.hdx_url}
-        <a href={metadata.hdx_url} target="_blank">HDX</a>
-      {/if}
-    </div>
-    <div><b>Downloads:</b></div>
-    <div>
+  <section>
+    <a class="no-print" href="/">Home</a>
+    <h2>
+      COD-AB Data Quality Report:<br />
+      {metadata.name}
+    </h2>
+    <p>Generated on: {today.toLocaleDateString('en-GB', options)}</p>
+    <div class="img-grid">
       {#each admin_levels as level}
-        <a href={`https://cod-data.fieldmaps.io/boundaries/${iso3.toLowerCase()}_adm${level}.gpkg`}>
-          {`Admin ${level}`}
-        </a>&nbsp;
+        <div>
+          <div>Admin {level}</div>
+          <a
+            href={`https://cod-data.fieldmaps.io/images/${iso3.toLowerCase()}_adm${level}.png`}
+            target="_blank"
+          >
+            <img
+              src={`https://cod-data.fieldmaps.io/images/${iso3.toLowerCase()}_adm${level}.png`}
+              alt="not available"
+            />
+          </a>
+        </div>
       {/each}
     </div>
-    <div><b>COD Quality:</b></div>
-    <div>{getCodQuality(metadata.itos_service)}</div>
-    <div><b>ISO-3 Code:</b></div>
-    <div>{metadata.iso3}</div>
-    <div><b>ISO-2 Code:</b></div>
-    <div>{metadata.iso2}</div>
-    <div><b>Data Contributor:</b></div>
-    <div>{metadata.hdx_source_2}</div>
-    <div><b>Data Source:</b></div>
-    <div>{metadata.hdx_source_1}</div>
-    <div><b>Licence:</b></div>
-    <div>{metadata.hdx_license}</div>
-  </div>
+  </section>
 
   <div class="pagebreak" />
 
-  <h2>Scores</h2>
-  <div class="score-grid">
-    <div><b>Overall Score</b>: Takes the average value of all the below.</div>
-    <div class={classifyScore(scores.score)}>{format('.0%')(scores.score)}</div>
-    {#each Object.entries(scoreDescriptions) as [key, value]}
+  <section>
+    <h2>Metadata</h2>
+    <div class="metadata-grid">
+      <div><b>Links:</b></div>
       <div>
-        <b>{scoreHeaders[key]}</b>: {value}
+        {#if metadata.itos_url}
+          <a href={metadata.itos_url} target="_blank">ITOS</a>
+        {/if}
+        {#if metadata.hdx_url}
+          <a href={metadata.hdx_url} target="_blank">HDX</a>
+        {/if}
       </div>
-      <div class={classifyScore(scores[key])}>
-        {format('.0')(scores[key] * (levels + 1))} of {levels + 1}
+      <div><b>Downloads:</b></div>
+      <div>
+        {#each admin_levels as level}
+          <a
+            href={`https://cod-data.fieldmaps.io/boundaries/${iso3.toLowerCase()}_adm${level}.gpkg`}
+          >
+            {`Admin ${level}`}
+          </a>&nbsp;
+        {/each}
       </div>
-    {/each}
-  </div>
+      <div><b>COD Quality:</b></div>
+      <div>{getCodQuality(metadata.itos_service)}</div>
+      <div><b>ISO-3 Code:</b></div>
+      <div>{metadata.iso3}</div>
+      <div><b>ISO-2 Code:</b></div>
+      <div>{metadata.iso2}</div>
+      <div><b>Data Contributor:</b></div>
+      <div>{metadata.hdx_source_2}</div>
+      <div><b>Data Source:</b></div>
+      <div>{metadata.hdx_source_1}</div>
+      <div><b>Licence:</b></div>
+      <div>{metadata.hdx_license}</div>
+    </div>
+  </section>
 
   <div class="pagebreak" />
 
-  <h2>Checks</h2>
-  <div class="check-grid" style="--levels: {levels + 1}">
-    <div />
-    {#each admin_levels as level}
-      <div><b>Admin {level}</b></div>
-    {/each}
+  <section>
+    <h2>Scores</h2>
+    <div class="score-grid">
+      <div><b>Overall Score</b>: Takes the average value of all the below.</div>
+      <div class={classifyScore(scores.score)}>{format('.0%')(scores.score)}</div>
+      {#each Object.entries(scoreDescriptions) as [key, value]}
+        <div>
+          <b>{scoreHeaders[key]}</b>: {value}
+        </div>
+        <div class={classifyScore(scores[key])}>
+          {format('.0')(scores[key] * (levels + 1))} of {levels + 1}
+        </div>
+      {/each}
+    </div>
+  </section>
 
-    <div>{checkDescriptions['geom_not_empty']}</div>
-    {#each admin_levels as level}
-      <div class:low={!checks[level]['geom_not_empty']}>
-        {checks[level]['geom_not_empty'] ? 'No' : 'Yes'}
-      </div>
-    {/each}
+  <div class="pagebreak" />
 
-    <div>{checkDescriptions['geom_is_polygon']}</div>
-    {#each admin_levels as level}
-      <div class:low={!checks[level]['geom_is_polygon']}>
-        {checks[level]['geom_is_polygon'] ? 'Yes' : 'No'}
-      </div>
-    {/each}
+  <section>
+    <h2>Checks</h2>
+    <div class="check-grid" style="--levels: {levels + 1}">
+      <div />
+      {#each admin_levels as level}
+        <div><b>Admin {level}</b></div>
+      {/each}
 
-    <div>{checkDescriptions['geom_is_xy']}</div>
-    {#each admin_levels as level}
-      <div class:low={!checks[level]['geom_is_xy']}>
-        {checks[level]['geom_is_xy'] ? 'Yes' : 'No'}
-      </div>
-    {/each}
+      <div>{checkDescriptions['geom_not_empty']}</div>
+      {#each admin_levels as level}
+        <div class:low={!checks[level]['geom_not_empty']}>
+          {checks[level]['geom_not_empty'] ? 'No' : 'Yes'}
+        </div>
+      {/each}
 
-    <div>{checkDescriptions['geom_is_valid']}</div>
-    {#each admin_levels as level}
-      <div class:low={!checks[level]['geom_is_valid']}>
-        {checks[level]['geom_is_valid'] ? 'Yes' : 'No'}
-      </div>
-    {/each}
+      <div>{checkDescriptions['geom_is_polygon']}</div>
+      {#each admin_levels as level}
+        <div class:low={!checks[level]['geom_is_polygon']}>
+          {checks[level]['geom_is_polygon'] ? 'Yes' : 'No'}
+        </div>
+      {/each}
 
-    <div>{checkDescriptions['geom_invalid_reason']}</div>
-    {#each admin_levels as level}
-      <div class:low={checks[level]['geom_invalid_reason']}>
-        {checks[level]['geom_invalid_reason'] || ''}
-      </div>
-    {/each}
+      <div>{checkDescriptions['geom_is_xy']}</div>
+      {#each admin_levels as level}
+        <div class:low={!checks[level]['geom_is_xy']}>
+          {checks[level]['geom_is_xy'] ? 'Yes' : 'No'}
+        </div>
+      {/each}
 
-    <div>{checkDescriptions['geom_proj']}</div>
-    {#each admin_levels as level}
-      <div class:low={checks[level]['geom_proj'] !== 4326}>
-        {checks[level]['geom_proj']}
-      </div>
-    {/each}
+      <div>{checkDescriptions['geom_is_valid']}</div>
+      {#each admin_levels as level}
+        <div class:low={!checks[level]['geom_is_valid']}>
+          {checks[level]['geom_is_valid'] ? 'Yes' : 'No'}
+        </div>
+      {/each}
 
-    <div>{checkDescriptions['geom_bounds']}</div>
-    {#each admin_levels as _}
-      {@const equal =
-        new Set(
-          checks.map((x) => [x.geom_min_x, x.geom_min_y, x.geom_max_x, x.geom_max_y].join(',')),
-        ).size === 1}
-      <div class:low={!equal}>
-        {equal ? 'Yes' : 'No'}
-      </div>
-    {/each}
+      <div>{checkDescriptions['geom_invalid_reason']}</div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['geom_invalid_reason']}>
+          {checks[level]['geom_invalid_reason'] || ''}
+        </div>
+      {/each}
 
-    <div>{checkDescriptions['geom_area_km']}</div>
-    {#each admin_levels as level}
-      <div class:low={new Set(checks.map((x) => x.geom_area_km)).size > 1}>
-        {format(',.0f')(checks[level]['geom_area_km'])}
-      </div>
-    {/each}
+      <div>{checkDescriptions['geom_proj']}</div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['geom_proj'] !== 4326}>
+          {checks[level]['geom_proj']}
+        </div>
+      {/each}
 
-    <div>{checkDescriptions['geom_overlaps_self']}</div>
-    {#each admin_levels as level}
-      <div class:low={checks[level]['geom_overlaps_self']}>
-        {checks[level]['geom_overlaps_self']}
-      </div>
-    {/each}
+      <div>{checkDescriptions['geom_bounds']}</div>
+      {#each admin_levels as _}
+        {@const equal =
+          new Set(
+            checks.map((x) => [x.geom_min_x, x.geom_min_y, x.geom_max_x, x.geom_max_y].join(',')),
+          ).size === 1}
+        <div class:low={!equal}>
+          {equal ? 'Yes' : 'No'}
+        </div>
+      {/each}
 
-    <div>{checkDescriptions['geom_overlaps_parent']}</div>
-    {#each admin_levels as level}
-      <div class:low={checks[level]['geom_overlaps_parent']}>
-        {checks[level]['geom_overlaps_parent']}
-      </div>
-    {/each}
+      <div>{checkDescriptions['geom_area_km']}</div>
+      {#each admin_levels as level}
+        <div class:low={new Set(checks.map((x) => x.geom_area_km)).size > 1}>
+          {format(',.0f')(checks[level]['geom_area_km'])}
+        </div>
+      {/each}
 
-    <div>What percentage of cells are empty?</div>
-    {#each admin_levels as level}
-      <div>
-        {format('.0%')(
-          checks[level]['number_of_missing_records'] /
-            (checks[level]['total_number_of_records'] || 1),
-        )}
-      </div>
-    {/each}
+      <div>{checkDescriptions['geom_overlaps_self']}</div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['geom_overlaps_self']}>
+          {checks[level]['geom_overlaps_self']}
+        </div>
+      {/each}
 
-    <div>What is the date of the dataset's source?</div>
-    {#each admin_levels as level}
-      <div class:low={checks[level]['date_count'] !== 1}>
-        {#each range(checks[level]['date_count'] - 1) as idx}
-          <div>
-            {checks[level]['date_' + (idx + 1)].toLocaleDateString('en-GB', options)}
-          </div>
-        {/each}
-        {#if checks[level]['date_count'] === 0}
-          <div>No Date</div>
-        {/if}
-      </div>
-    {/each}
+      <div>{checkDescriptions['geom_overlaps_parent']}</div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['geom_overlaps_parent']}>
+          {checks[level]['geom_overlaps_parent']}
+        </div>
+      {/each}
 
-    <div>When was the dataset last updated?</div>
-    {#each admin_levels as level}
-      <div
-        class:low={checks[level]['update_count'] !== 1 ||
-          today - checks[level]['update_1'] > 1000 * 60 * 60 * 24 * 365 * 3}
-      >
-        {#each range(checks[level]['update_count'] - 1) as idx}
-          <div>
-            {checks[level]['update_' + (idx + 1)].toLocaleDateString('en-GB', options)}
-          </div>
-        {/each}
-        {#if checks[level]['update_count'] === 0}
-          <div>No Date</div>
-        {/if}
-      </div>
-    {/each}
-
-    <div>What languages are used in the dataset?</div>
-    {#each admin_levels as level}
-      <div class:low={!checks[level]['language_count']}>
-        {#each range(checks[level]['language_count'] - 1) as idx}
-          {@const lang = new Intl.DisplayNames('en', { type: 'language' }).of(
-            checks[level]['language_' + (idx + 1)],
+      <div>What percentage of cells are empty?</div>
+      {#each admin_levels as level}
+        <div>
+          {format('.0%')(
+            checks[level]['number_of_missing_records'] /
+              (checks[level]['total_number_of_records'] || 1),
           )}
-          <div class:low={lang === checks[level]['language_' + (idx + 1)]}>
-            {lang}
-          </div>
-        {/each}
-        {#if checks[level]['language_count'] === 0}
-          <div>No Language</div>
-        {/if}
-      </div>
-    {/each}
-  </div>
+        </div>
+      {/each}
+
+      <div>What is the date of the dataset's source?</div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['date_count'] !== 1}>
+          {#each range(checks[level]['date_count'] - 1) as idx}
+            <div>
+              {checks[level]['date_' + (idx + 1)].toLocaleDateString('en-GB', options)}
+            </div>
+          {/each}
+          {#if checks[level]['date_count'] === 0}
+            <div>No Date</div>
+          {/if}
+        </div>
+      {/each}
+
+      <div>When was the dataset last updated?</div>
+      {#each admin_levels as level}
+        <div
+          class:low={checks[level]['update_count'] !== 1 ||
+            today - checks[level]['update_1'] > 1000 * 60 * 60 * 24 * 365 * 3}
+        >
+          {#each range(checks[level]['update_count'] - 1) as idx}
+            <div>
+              {checks[level]['update_' + (idx + 1)].toLocaleDateString('en-GB', options)}
+            </div>
+          {/each}
+          {#if checks[level]['update_count'] === 0}
+            <div>No Date</div>
+          {/if}
+        </div>
+      {/each}
+
+      <div>What languages are used in the dataset?</div>
+      {#each admin_levels as level}
+        <div class:low={!checks[level]['language_count']}>
+          {#each range(checks[level]['language_count'] - 1) as idx}
+            {@const lang = new Intl.DisplayNames('en', { type: 'language' }).of(
+              checks[level]['language_' + (idx + 1)],
+            )}
+            <div class:low={lang === checks[level]['language_' + (idx + 1)]}>
+              {lang}
+            </div>
+          {/each}
+          {#if checks[level]['language_count'] === 0}
+            <div>No Language</div>
+          {/if}
+        </div>
+      {/each}
+    </div>
+  </section>
 </main>
 
 <style>
@@ -257,6 +268,9 @@
     main {
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
+    }
+    .no-print {
+      display: none;
     }
     .pagebreak {
       page-break-before: always;
@@ -273,8 +287,11 @@
     }
   }
   main {
-    margin: 2rem auto;
+    margin: 1rem auto;
     max-width: 1024px;
+  }
+  section {
+    margin: 0 1rem;
   }
   .low {
     background-color: #ffc7ce;

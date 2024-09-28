@@ -64,10 +64,11 @@
 
 <style>
   section {
-    display: flex;
-    justify-content: center;
+    margin: auto;
+    overflow: auto;
   }
   table {
+    margin: auto;
     border-spacing: 1rem 0.25rem;
   }
   th {
