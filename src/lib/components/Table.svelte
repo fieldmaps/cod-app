@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { headers } from '$lib/consts';
+  import { scoreDescriptions, scoreHeaders } from '$lib/consts';
   import { sortDirection, sortIndex } from '$lib/stores';
-  import { getCSVRows } from '$lib/utils';
+  import { classifyScore, getCSVRows } from '$lib/utils';
   import { format } from 'd3-format';
   import { onMount } from 'svelte';
 
@@ -14,12 +14,6 @@
     scores = rows.slice(1);
     onClick();
   });
-
-  function classifyScore(score: number) {
-    if (score <= 0.333) return 'low';
-    if (score <= 0.667) return 'medium';
-    return 'high';
-  }
 
   function onClick(index?: number) {
     if (typeof index === 'number') {
@@ -45,8 +39,8 @@
     <table class="table">
       <tr>
         {#each headerRow as header, index}
-          <th on:click={() => onClick(index)}>
-            {headers[header] || header}
+          <th on:click={() => onClick(index)} title={scoreDescriptions[header]}>
+            {scoreHeaders[header] || header}
           </th>
         {/each}
       </tr>
@@ -84,14 +78,11 @@
   }
   .low {
     background-color: #ffc7ce;
-    color: #9c0006;
   }
   .medium {
-    background-color: #ffeb9c;
-    color: #9c6500;
+    background-color: #ffcc99;
   }
   .high {
-    background-color: #c6efce;
-    color: #006100;
+    background-color: #ffeb9c;
   }
 </style>
