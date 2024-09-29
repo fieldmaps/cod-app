@@ -1,8 +1,28 @@
 <script lang="ts">
   import { baseURL } from '$lib/consts';
+  import { getCSV } from '$lib/utils';
+  import { onMount } from 'svelte';
+
+  let date = new Date();
+
+  const options = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'UTC',
+  };
+
+  onMount(async () => {
+    date = (await getCSV('tables/date'))[0].date;
+  });
 </script>
 
 <h1>COD-AB Data Quality</h1>
+
+<section>
+  Generated on: {date.toLocaleDateString('en-GB', options)}
+</section>
+
 <section>
   <div>
     <a href="https://github.com/mapaction/cod-ab-data-quality">GitHub project</a>

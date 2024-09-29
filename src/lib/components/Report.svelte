@@ -6,7 +6,6 @@
   import { onMount } from 'svelte';
 
   const iso3 = $page.params.slug.toUpperCase();
-  const today = new Date();
   const options = {
     year: 'numeric',
     month: 'short',
@@ -17,6 +16,7 @@
   let metadata = {};
   let checks = [];
   let scores = {};
+  let date = new Date();
   let admin_levels = [];
   let levels = -1;
 
@@ -27,6 +27,7 @@
     checks = checksAll.filter((x) => x.iso3 === iso3);
     const scoresAll = await getCSV('tables/scores');
     scores = scoresAll.find((x) => x.iso3 === iso3);
+    date = (await getCSV('tables/date'))[0].date;
     admin_levels = range(metadata.itos_level);
     levels = metadata.itos_level;
   });
@@ -39,7 +40,7 @@
       COD-AB Data Quality Report:<br />
       {metadata.name}
     </h2>
-    <p>Generated on: {today.toLocaleDateString('en-GB', options)}</p>
+    <p>Generated on: {date.toLocaleDateString('en-GB', options)}</p>
     <div class="img-grid">
       {#each admin_levels as level}
         <div>
@@ -226,7 +227,7 @@
       {#each admin_levels as level}
         <div
           class:low={checks[level]['update_count'] !== 1 ||
-            today - checks[level]['update_1'] > 1000 * 60 * 60 * 24 * 365 * 3}
+            date - checks[level]['update_1'] > 1000 * 60 * 60 * 24 * 365 * 3}
         >
           {#each range(checks[level]['update_count'] - 1) as idx}
             <div>

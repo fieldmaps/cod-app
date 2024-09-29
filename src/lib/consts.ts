@@ -25,7 +25,7 @@ export const scoreDescriptions = {
   geometry_area:
     'Layers which all share the same area. Layers not sharing the same area may have empty areas representing water bodies whereas other layers have them filled out.',
   languages: 'Layers which have at least 1 language column detected.',
-  dates: 'Layers which have been updated within the last 3 years.',
+  dates: 'Layers which have been updated within the last 12 months.',
 };
 
 export const checkDescriptions = {
