@@ -11,6 +11,14 @@
   </div>
 </section>
 
+<section>
+  <div>
+    <a href={`${baseURL}/tables/metadata.csv`}>metadata.csv</a>,
+    <a href={`${baseURL}/tables/checks.csv`}>checks.csv</a>,
+    <a href={`${baseURL}/tables/scores.csv`}>scores.csv</a>
+  </div>
+</section>
+
 <style>
   h1,
   section {
