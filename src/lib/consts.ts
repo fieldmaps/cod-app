@@ -1,7 +1,9 @@
 export const baseURL = 'https://cod-data.fieldmaps.io';
 
 export const scoreHeaders = {
-  iso3: 'ISO-3',
+  name: 'Name',
+  iso3: 'Code',
+  itos_service: 'Status',
   geometry_valid: 'Valid Geometry',
   geometry_hierarchy: 'Hierarchal Geometry',
   geometry_bounds: 'Same Bounds',
@@ -29,14 +31,13 @@ export const scoreDescriptions = {
 export const checkDescriptions = {
   geom_not_empty: 'Are there any empty geometries contained within the layer?',
   geom_is_polygon: 'Are all geometries in the layer of type polygon?',
-  geom_is_xy:
-    'Are all polygons 2 dimensional? In other words, do they contain only XY coordinates and no Z?',
+  geom_is_xy: 'Are all polygons 2 dimensional? Do they contain only XY coordinates and no Z?',
   geom_is_valid: 'Are all geometries valid?',
   geom_invalid_reason: 'If any geometries are invalid, how come?',
   geom_proj: 'What EPSG projection is used in the layer?',
-  geom_bounds: 'Are all layer boundaries the same?',
-  geom_area_km: 'How large is the layer in square kilometers?',
+  geom_bounds: 'Are all layer bounding boxes the same?',
+  geom_area_km: 'How large is the layer rounded to square kilometers?',
   geom_overlaps_self: 'How many polygons overlap each other within the same layer?',
   geom_overlaps_parent:
-    'How many polygons are not hierarchal, meaning they cross the border between two parent boundaries?',
+    'How many polygons are not hierarchal, meaning they overlap with more than one parent polygon?',
 };

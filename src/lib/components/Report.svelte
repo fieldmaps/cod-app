@@ -44,10 +44,7 @@
       {#each admin_levels as level}
         <div>
           <div>Admin {level}</div>
-          <a
-            href={`https://cod-data.fieldmaps.io/images/${iso3.toLowerCase()}_adm${level}.png`}
-            target="_blank"
-          >
+          <a href={`https://cod-data.fieldmaps.io/images/${iso3.toLowerCase()}_adm${level}.png`}>
             <img
               src={`https://cod-data.fieldmaps.io/images/${iso3.toLowerCase()}_adm${level}.png`}
               alt="not available"
@@ -66,10 +63,10 @@
       <div><b>Links:</b></div>
       <div>
         {#if metadata.itos_url}
-          <a href={metadata.itos_url} target="_blank">ITOS</a>
+          <a href={metadata.itos_url}>ITOS</a>
         {/if}
         {#if metadata.hdx_url}
-          <a href={metadata.hdx_url} target="_blank">HDX</a>
+          <a href={metadata.hdx_url}>HDX</a>
         {/if}
       </div>
       <div><b>Downloads:</b></div>
@@ -83,7 +80,9 @@
         {/each}
       </div>
       <div><b>COD Quality:</b></div>
-      <div>{getCodQuality(metadata.itos_service)}</div>
+      <div class:medium={metadata.itos_service !== 'COD_External'}>
+        {getCodQuality(metadata.itos_service)}
+      </div>
       <div><b>ISO-3 Code:</b></div>
       <div>{metadata.iso3}</div>
       <div><b>ISO-2 Code:</b></div>
@@ -163,7 +162,7 @@
       <div>{checkDescriptions['geom_proj']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['geom_proj'] !== 4326}>
-          {checks[level]['geom_proj']}
+          {checks[level]['geom_proj'] || 'N/A'}
         </div>
       {/each}
 
@@ -188,14 +187,14 @@
       <div>{checkDescriptions['geom_overlaps_self']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['geom_overlaps_self']}>
-          {checks[level]['geom_overlaps_self']}
+          {checks[level]['geom_overlaps_self'] || 0}
         </div>
       {/each}
 
       <div>{checkDescriptions['geom_overlaps_parent']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['geom_overlaps_parent']}>
-          {checks[level]['geom_overlaps_parent']}
+          {checks[level]['geom_overlaps_parent'] || 0}
         </div>
       {/each}
 
@@ -308,8 +307,9 @@
   }
   .metadata-grid {
     display: grid;
-    grid-template-columns: auto auto;
     gap: 0.5rem;
+    grid-template-columns: auto auto;
+    justify-items: start;
   }
   .score-grid {
     align-items: center;

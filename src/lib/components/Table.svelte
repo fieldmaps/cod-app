@@ -1,59 +1,70 @@
 <script lang="ts">
   import { scoreDescriptions, scoreHeaders } from '$lib/consts';
-  import { sortDirection, sortIndex } from '$lib/stores';
-  import { classifyScore, getCSVRows } from '$lib/utils';
+  import { sortDirection, sortKey } from '$lib/stores';
+  import { classifyScore, getCodQuality, getCSV, mergeArrays } from '$lib/utils';
   import { format } from 'd3-format';
   import { onMount } from 'svelte';
 
-  let headerRow = [];
-  let scores = [];
+  let rows = [];
 
   onMount(async () => {
-    const rows = await getCSVRows('tables/scores');
-    headerRow = rows[0];
-    scores = rows.slice(1);
+    const metadata = await getCSV('tables/metadata');
+    const scores = await getCSV('tables/scores');
+    rows = mergeArrays(metadata, scores, 'iso3');
     onClick();
   });
 
-  function onClick(index?: number) {
-    if (typeof index === 'number') {
-      if ($sortIndex === index) {
+  function onClick(key?: string) {
+    if (key) {
+      if ($sortKey === key) {
         $sortDirection = -$sortDirection;
       } else {
-        $sortIndex = index;
+        $sortKey = key;
         $sortDirection = 1;
       }
     }
-    const sortIdx = $sortIndex >= 0 ? $sortIndex : scores[0].length + $sortIndex;
-    scores = scores.sort((a, b) => {
-      if (a[sortIdx] < b[sortIdx]) return -$sortDirection;
-      if (a[sortIdx] > b[sortIdx]) return $sortDirection;
-      if (a[0] > b[0]) return 1;
+    rows = rows.sort((a, b) => {
+      const sortA = a[$sortKey] || '';
+      const sortB = b[$sortKey] || '';
+      if (sortA < sortB) return -$sortDirection;
+      if (sortA > sortB) return $sortDirection;
+      if (a.iso3 > b.iso3) return 1;
       return 0;
     });
   }
 </script>
 
 <section>
-  {#if scores.length}
+  {#if rows.length}
     <table class="table">
       <tr>
-        {#each headerRow as header, index}
-          <th on:click={() => onClick(index)} title={scoreDescriptions[header]}>
-            {scoreHeaders[header] || header}
+        {#each Object.entries(scoreHeaders) as [key, value]}
+          <th on:click={() => onClick(key)} title={scoreDescriptions[key]}>
+            {value}
           </th>
         {/each}
       </tr>
-      {#each scores as score}
+      {#each rows as row}
         <tr>
+          <td>{row.name}</td>
           <td>
-            <a href={`/report/${score[0].toLowerCase()}`}>
-              {score[0]}
-            </a>
+            {#if row.score}
+              <a href={`/report/${row.iso3.toLowerCase()}`}>
+                {row.iso3}
+              </a>
+            {:else}
+              {row.iso3}
+            {/if}
           </td>
-          {#each score.slice(1) as data}
-            <td class={`cell ${classifyScore(data)}`}>
-              {format('.0%')(data)}
+          <td
+            class:low={row.itos_service === null}
+            class:medium={row.itos_service === 'COD_NO_GEOM_CHECK'}
+          >
+            {getCodQuality(row.itos_service)}
+          </td>
+          {#each Object.keys(scoreHeaders).slice(3) as key}
+            <td class={`cell ${classifyScore(row[key] || 0)}`}>
+              {format('.0%')(row[key] || 0)}
             </td>
           {/each}
         </tr>
@@ -64,7 +75,7 @@
 
 <style>
   section {
-    margin: auto;
+    margin: 1rem auto;
     overflow: auto;
   }
   table {

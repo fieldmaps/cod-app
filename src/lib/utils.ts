@@ -34,3 +34,11 @@ export function getCodQuality(service: string) {
 export function range(stop = 0, start = 0, step = 1) {
   return Array.from({ length: (stop - start) / step + 1 }, (_, index) => start + index * step);
 }
+
+export function mergeArrays(arr1: any[], arr2: any[], key: string) {
+  const merged = [];
+  for (let i = 0; i < arr1.length; i++) {
+    merged.push({ ...arr1[i], ...arr2.find((x) => x[key] === arr1[i][key]) });
+  }
+  return merged;
+}
