@@ -33,6 +33,10 @@
   });
 </script>
 
+<svelte:head>
+  <title>{metadata.name} - Report | FieldMaps</title>
+</svelte:head>
+
 <main>
   <section>
     <a class="no-print" href="/">Home</a>
