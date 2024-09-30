@@ -290,7 +290,7 @@
       {#each admin_levels as level}
         <div
           class:low={checks[level]['update_count'] !== 1 ||
-            date - checks[level]['update_1'] > 1000 * 60 * 60 * 24 * 365 * 3}
+            date - checks[level]['update_1'] > 1000 * 60 * 60 * 24 * 365}
         >
           {#each range(checks[level]['update_count'] - 1) as idx}
             <div>
