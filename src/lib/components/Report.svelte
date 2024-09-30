@@ -218,7 +218,8 @@
       <div>How many name columns are present? (eg. ADM2_EN)</div>
       {#each admin_levels as level}
         <div
-          class:low={checks[level]['name_count'] !== checks[level]['language_count'] * (level + 1)}
+          class:low={!checks[level]['name_count'] ||
+            checks[level]['name_count'] !== checks[level]['language_count'] * (level + 1)}
         >
           {checks[level]['name_count']}
         </div>
@@ -255,8 +256,8 @@
       <div>How many alternative name columns are present? (eg. ADM2ALT1_EN)</div>
       {#each admin_levels as level}
         <div
-          class:low={checks[level]['alternative_name_count'] !==
-            checks[level]['language_count'] * 2}
+          class:low={!checks[level]['alternative_name_count'] ||
+            checks[level]['alternative_name_count'] !== checks[level]['language_count'] * 2}
         >
           {checks[level]['alternative_name_count']}
         </div>
