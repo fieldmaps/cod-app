@@ -199,6 +199,69 @@
         </div>
       {/each}
 
+      <div>
+        How many admin levels (eg. ADM2) are represented with any columns starting with ADM?
+      </div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['levels_with_data'] !== level + 1}>
+          {checks[level]['levels_with_data']}
+        </div>
+      {/each}
+
+      <div>How many admin levels (eg. ADM2) are represented with name columns? (eg. ADM2_EN)</div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['levels_with_name'] !== level + 1}>
+          {checks[level]['levels_with_name']}
+        </div>
+      {/each}
+
+      <div>How many name columns are present? (eg. ADM2_EN)</div>
+      {#each admin_levels as level}
+        <div
+          class:low={checks[level]['name_count'] !== checks[level]['language_count'] * (level + 1)}
+        >
+          {checks[level]['name_count']}
+        </div>
+      {/each}
+
+      <div>
+        How many admin levels (eg. ADM2) are represented with P-Code columns? (eg. ADM2_PCODE)
+      </div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['levels_with_pcode'] !== level + 1}>
+          {checks[level]['levels_with_pcode']}
+        </div>
+      {/each}
+
+      <div>
+        How many admin levels (eg. ADM2) are represented with reference name columns? (eg. ADM2_REF)
+      </div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['levels_with_reference_name'] !== 1}>
+          {checks[level]['levels_with_reference_name']}
+        </div>
+      {/each}
+
+      <div>
+        How many admin levels (eg. ADM2) are represented with alternative name columns? (eg.
+        ADM2ALT1_EN)
+      </div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['levels_with_alternative_name'] !== 1}>
+          {checks[level]['levels_with_alternative_name']}
+        </div>
+      {/each}
+
+      <div>How many alternative name columns are present? (eg. ADM2ALT1_EN)</div>
+      {#each admin_levels as level}
+        <div
+          class:low={checks[level]['alternative_name_count'] !==
+            checks[level]['language_count'] * 2}
+        >
+          {checks[level]['alternative_name_count']}
+        </div>
+      {/each}
+
       <div>What percentage of cells are empty?</div>
       {#each admin_levels as level}
         <div>
