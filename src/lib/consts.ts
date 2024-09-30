@@ -8,6 +8,8 @@ export const scoreHeaders = {
   geometry_hierarchy: 'Hierarchal Geometry',
   geometry_bounds: 'Same Bounds',
   geometry_area: 'Same Area',
+  columns_required: 'Required Columns',
+  columns_optional: 'Optional Columns',
   languages: 'Languages',
   dates: 'Dates',
   error_free: 'Error free',
@@ -24,6 +26,8 @@ export const scoreDescriptions = {
     'Layers which all share the same geometric bounding box. Layers not sharing the same bounding box are partial layers which only cover a sub-section.',
   geometry_area:
     'Layers which all share the same area. Layers not sharing the same area may have empty areas representing water bodies whereas other layers have them filled out.',
+  columns_required: 'Layers which have all required ADM columns. (ex. ADM2_EN, ADM2_PCODE, etc)',
+  columns_optional: 'Layers which have all optional ADM columns. (ex. ADM2_REF, ADM2ALT1_EN, etc)',
   languages: 'Layers which have at least 1 language column detected.',
   dates: 'Layers which have been updated within the last 12 months.',
 };
