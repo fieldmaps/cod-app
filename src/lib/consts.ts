@@ -16,7 +16,6 @@ export const scoreHeaders = {
 };
 
 export const scoreDescriptions = {
-  error_free: 'Layers which do not fail any of the below checks.',
   geometry_valid:
     'Layers which have valid geometry. Valid geometry is defined by having no empty geometries, only containing polygons (no points or lines), not containing any self-intersecting rings, using WGS84 CRS (EPSG:4326), and containing no self-overlapping polygons.',
   geometry_hierarchy:
