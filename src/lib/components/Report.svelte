@@ -291,7 +291,7 @@
         </div>
       {/each}
 
-      <div>When was the dataset last updated?</div>
+      <div>When was the dataset last validated on?</div>
       {#each admin_levels as level}
         <div
           class:low={checks[level]['update_count'] !== 1 ||
