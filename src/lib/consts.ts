@@ -1,9 +1,6 @@
 export const baseURL = 'https://cod-data.fieldmaps.io';
 
 export const scoreHeaders = {
-  name: 'Name',
-  iso3: 'Code',
-  itos_service: 'Status',
   geometry_valid: 'Valid Geometry',
   geometry_hierarchy: 'Hierarchal Geometry',
   geometry_bounds: 'Same Bounds',
@@ -11,13 +8,10 @@ export const scoreHeaders = {
   columns_required: 'Required Columns',
   columns_optional: 'Optional Columns',
   languages: 'Languages',
-  dates: 'Dates',
-  error_free: 'Error free',
-  score: 'Score',
+  dates: 'Valid On',
 };
 
 export const scoreDescriptions = {
-  error_free: 'Layers which do not fail any of the below checks.',
   geometry_valid:
     'Layers which have valid geometry. Valid geometry is defined by having no empty geometries, only containing polygons (no points or lines), not containing any self-intersecting rings, using WGS84 CRS (EPSG:4326), and containing no self-overlapping polygons.',
   geometry_hierarchy:
@@ -29,7 +23,7 @@ export const scoreDescriptions = {
   columns_required: 'Layers which have all required ADM columns. (ex. ADM2_EN, ADM2_PCODE, etc)',
   columns_optional: 'Layers which have all optional ADM columns. (ex. ADM2_REF, ADM2ALT1_EN, etc)',
   languages: 'Layers which have at least 1 language column detected.',
-  dates: 'Layers which have been updated within the last 12 months.',
+  dates: 'Layers which have been validated on within the last 12 months.',
 };
 
 export const checkDescriptions = {
