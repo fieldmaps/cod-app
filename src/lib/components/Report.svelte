@@ -129,6 +129,9 @@
         <div><b>Admin {level}</b></div>
       {/each}
 
+      <div><b>{scoreHeaders.geometry_valid}</b></div>
+      {#each admin_levels as _}<div />{/each}
+
       <div>{checkDescriptions['geom_not_empty']}</div>
       {#each admin_levels as level}
         <div class:low={!checks[level]['geom_not_empty']}>
@@ -171,6 +174,36 @@
         </div>
       {/each}
 
+      <div>{checkDescriptions['geom_overlaps_self']}</div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['geom_overlaps_self']}>
+          {checks[level]['geom_overlaps_self'] || 0}
+        </div>
+      {/each}
+
+      <div><b>{scoreHeaders.geometry_hierarchy}</b></div>
+      {#each admin_levels as _}<div />{/each}
+
+      <div>{checkDescriptions['geom_overlaps_parent']}</div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['geom_overlaps_parent']}>
+          {checks[level]['geom_overlaps_parent'] || 0}
+        </div>
+      {/each}
+
+      <div><b>{scoreHeaders.geometry_area}</b></div>
+      {#each admin_levels as _}<div />{/each}
+
+      <div>{checkDescriptions['geom_area_km']}</div>
+      {#each admin_levels as level}
+        <div class:low={new Set(checks.map((x) => x.geom_area_km)).size > 1}>
+          {format(',.0f')(checks[level]['geom_area_km'])}
+        </div>
+      {/each}
+
+      <div><b>{scoreHeaders.geometry_bounds}</b></div>
+      {#each admin_levels as _}<div />{/each}
+
       <div>{checkDescriptions['geom_bounds']}</div>
       {#each admin_levels as _}
         {@const equal =
@@ -182,26 +215,8 @@
         </div>
       {/each}
 
-      <div>{checkDescriptions['geom_area_km']}</div>
-      {#each admin_levels as level}
-        <div class:low={new Set(checks.map((x) => x.geom_area_km)).size > 1}>
-          {format(',.0f')(checks[level]['geom_area_km'])}
-        </div>
-      {/each}
-
-      <div>{checkDescriptions['geom_overlaps_self']}</div>
-      {#each admin_levels as level}
-        <div class:low={checks[level]['geom_overlaps_self']}>
-          {checks[level]['geom_overlaps_self'] || 0}
-        </div>
-      {/each}
-
-      <div>{checkDescriptions['geom_overlaps_parent']}</div>
-      {#each admin_levels as level}
-        <div class:low={checks[level]['geom_overlaps_parent']}>
-          {checks[level]['geom_overlaps_parent'] || 0}
-        </div>
-      {/each}
+      <div><b>{scoreHeaders.columns_required}</b></div>
+      {#each admin_levels as _}<div />{/each}
 
       <div>
         How many admin levels (eg. ADM2) are represented with any columns starting with ADM?
@@ -238,6 +253,9 @@
         </div>
       {/each}
 
+      <div><b>{scoreHeaders.columns_optional}</b></div>
+      {#each admin_levels as _}<div />{/each}
+
       <div>
         How many admin levels (eg. ADM2) are represented with reference name columns? (eg. ADM2_REF)
       </div>
@@ -267,6 +285,9 @@
         </div>
       {/each}
 
+      <div><b>Table Completeness</b></div>
+      {#each admin_levels as _}<div />{/each}
+
       <div>What percentage of cells are empty?</div>
       {#each admin_levels as level}
         <div>
@@ -276,6 +297,9 @@
           )}
         </div>
       {/each}
+
+      <div><b>Dates</b></div>
+      {#each admin_levels as _}<div />{/each}
 
       <div>What is the date of the dataset's source?</div>
       {#each admin_levels as level}
@@ -290,6 +314,9 @@
           {/if}
         </div>
       {/each}
+
+      <div><b>{scoreHeaders.dates}</b></div>
+      {#each admin_levels as _}<div />{/each}
 
       <div>When was the dataset last validated on?</div>
       {#each admin_levels as level}
@@ -307,6 +334,9 @@
           {/if}
         </div>
       {/each}
+
+      <div><b>{scoreHeaders.languages}</b></div>
+      {#each admin_levels as _}<div />{/each}
 
       <div>What languages are used in the dataset?</div>
       {#each admin_levels as level}
