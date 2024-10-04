@@ -42,6 +42,7 @@
         on:input={onChange}
         type="password"
         autocomplete="current-password"
+        autofocus
       />
     </label>
   </form>
