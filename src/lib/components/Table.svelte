@@ -61,18 +61,41 @@
         {#each [['name', 'Name'], ['iso3', 'Code'], ['itos_service', 'Status']] as [key, value]}
           <th on:click={() => sortRows(key)}>
             {value}
+            {#if $sortKey === key}
+              {#if $sortDirection === 1}
+                ▲
+              {:else if $sortDirection === -1}
+                ▼
+              {/if}
+            {/if}
           </th>
         {/each}
         {#each Object.entries(scoreHeaders) as [key, value]}
           {#if $visibleColumns[key]}
             <th on:click={() => sortRows(key)} title={scoreDescriptions[key]}>
               {value}
+              {#if $sortKey === key}
+                {#if $sortDirection === 1}
+                  ▲
+                {:else if $sortDirection === -1}
+                  ▼
+                {/if}
+              {/if}
             </th>
           {:else}
             <td />
           {/if}
         {/each}
-        <th on:click={() => sortRows('score')}> Score </th>
+        <th on:click={() => sortRows('score')}>
+          Score
+          {#if $sortKey === 'score'}
+            {#if $sortDirection === 1}
+              ▲
+            {:else if $sortDirection === -1}
+              ▼
+            {/if}
+          {/if}
+        </th>
       </tr>
       {#each rows as row}
         <tr>
