@@ -11,7 +11,7 @@
     const metadata = await getCSV('tables/metadata');
     const scores = await getCSV('tables/scores');
     rows = mergeArrays(metadata, scores, 'iso3');
-    sortRows();
+    toggleColumn();
   });
 
   function sortRows(key?: string) {
