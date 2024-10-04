@@ -42,3 +42,7 @@ export function mergeArrays(arr1: any[], arr2: any[], key: string) {
   }
   return merged;
 }
+
+export function getMean(array: number[]) {
+  return array.reduce((sum, cur) => sum + cur, 0) / array.length;
+}

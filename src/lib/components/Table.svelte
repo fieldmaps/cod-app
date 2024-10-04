@@ -1,7 +1,7 @@
 <script lang="ts">
   import { scoreDescriptions, scoreHeaders } from '$lib/consts';
   import { sortDirection, sortKey, visibleColumns } from '$lib/stores';
-  import { classifyScore, getCodQuality, getCSV, mergeArrays } from '$lib/utils';
+  import { classifyScore, getCodQuality, getCSV, getMean, mergeArrays } from '$lib/utils';
   import { format } from 'd3-format';
   import { onMount } from 'svelte';
 
@@ -11,10 +11,10 @@
     const metadata = await getCSV('tables/metadata');
     const scores = await getCSV('tables/scores');
     rows = mergeArrays(metadata, scores, 'iso3');
-    onClick();
+    sortRows();
   });
 
-  function onClick(key?: string) {
+  function sortRows(key?: string) {
     if (key) {
       if ($sortKey === key) {
         $sortDirection = -$sortDirection;
@@ -33,8 +33,15 @@
     });
   }
 
-  function toggleColumn(key: string) {
-    console.log($visibleColumns);
+  function toggleColumn() {
+    for (const row of rows) {
+      const scores = [];
+      for (const [key, visible] of Object.entries($visibleColumns)) {
+        if (visible) scores.push(row[key]);
+      }
+      row.score = getMean(scores);
+    }
+    sortRows();
   }
 </script>
 
@@ -44,7 +51,7 @@
       <tr>
         <td /><td /><td />
         {#each Object.keys(scoreHeaders) as key}
-          <td on:click={() => setTimeout(() => toggleColumn(key))}>
+          <td class="center" on:click={() => setTimeout(() => toggleColumn(key))}>
             <input type="checkbox" bind:checked={$visibleColumns[key]} />
           </td>
         {/each}
@@ -52,16 +59,20 @@
       </tr>
       <tr>
         {#each [['name', 'Name'], ['iso3', 'Code'], ['itos_service', 'Status']] as [key, value]}
-          <th on:click={() => onClick(key)}>
+          <th on:click={() => sortRows(key)}>
             {value}
           </th>
         {/each}
         {#each Object.entries(scoreHeaders) as [key, value]}
-          <th on:click={() => onClick(key)} title={scoreDescriptions[key]}>
-            {value}
-          </th>
+          {#if $visibleColumns[key]}
+            <th on:click={() => sortRows(key)} title={scoreDescriptions[key]}>
+              {value}
+            </th>
+          {:else}
+            <td />
+          {/if}
         {/each}
-        <th on:click={() => onClick('score')}> Score </th>
+        <th on:click={() => sortRows('score')}> Score </th>
       </tr>
       {#each rows as row}
         <tr>
@@ -82,9 +93,13 @@
             {getCodQuality(row.itos_service)}
           </td>
           {#each Object.keys(scoreHeaders) as key}
-            <td class={`cell ${classifyScore(row[key] || 0)}`}>
-              {format('.0%')(row[key] || 0)}
-            </td>
+            {#if $visibleColumns[key]}
+              <td class={`cell ${classifyScore(row[key] || 0)}`}>
+                {format('.0%')(row[key] || 0)}
+              </td>
+            {:else}
+              <td />
+            {/if}
           {/each}
           <td class={`cell ${classifyScore(row.score || 0)}`}>
             {format('.0%')(row.score || 0)}
@@ -109,6 +124,9 @@
   }
   .cell {
     text-align: right;
+  }
+  .center {
+    text-align: center;
   }
   .low {
     background-color: #ffc7ce;
