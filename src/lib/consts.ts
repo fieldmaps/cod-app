@@ -7,7 +7,8 @@ export const scoreHeaders = {
   geometry_bounds: 'Same Bounds',
   columns_required: 'Required Columns',
   languages: 'Languages',
-  dates: 'Dates',
+  date: 'Date',
+  valid_on: 'Valid On',
 };
 
 export const scoreDescriptions = {
@@ -22,7 +23,8 @@ export const scoreDescriptions = {
   columns_required: 'Layers which have all required ADM columns. (ex. ADM2_EN, ADM2_PCODE, etc)',
   languages:
     'Layers which have at least 1 language column detected and all language codes used are valid.',
-  dates: 'Layers which have dates and have been validated on within the last 12 months.',
+  date: 'Layers which have a valid date value for their source.',
+  valid_on: 'Layers which have been validated on within the last 12 months.',
 };
 
 export const checkDescriptions = {

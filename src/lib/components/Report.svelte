@@ -266,7 +266,7 @@
         </div>
       {/each}
 
-      <div><b>{scoreHeaders.dates}</b></div>
+      <div><b>{scoreHeaders.date}</b></div>
       {#each admin_levels as _}<div />{/each}
 
       <div>What is the date of the dataset's source?</div>
@@ -282,6 +282,9 @@
           {/if}
         </div>
       {/each}
+
+      <div><b>{scoreHeaders.valid_on}</b></div>
+      {#each admin_levels as _}<div />{/each}
 
       <div>When was the dataset last validated on?</div>
       {#each admin_levels as level}
