@@ -12,7 +12,7 @@ export const scoreHeaders = {
 
 export const scoreDescriptions = {
   geometry_valid:
-    'Layers which have valid geometry. Valid geometry is defined by having no empty geometries, only containing polygons (no points or lines), not containing any self-intersecting rings, using WGS84 CRS (EPSG:4326), and containing no self-overlapping polygons.',
+    'Layers which have valid geometry. Valid geometry is defined by having no empty geometries, only containing polygons (no points or lines), not containing any self-intersecting rings, using WGS84 CRS (EPSG:4326), and has a valid bounding box.',
   geometry_topology:
     'Layers which have valid topology. Valid topology is defined as having no sliver gaps or overlaps within a layer, and having perfect hierarchical nesting (each feature only belongs to one parent feature).',
   geometry_area:
