@@ -227,6 +227,15 @@
         </div>
       {/each}
 
+      <div>
+        How many admin levels (eg. ADM2) are represented with P-Code columns? (eg. ADM2_PCODE)
+      </div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['levels_with_pcode'] !== level + 1}>
+          {checks[level]['levels_with_pcode']}
+        </div>
+      {/each}
+
       <div>How many admin levels (eg. ADM2) are represented with name columns? (eg. ADM2_EN)</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['levels_with_name'] !== level + 1}>
@@ -244,47 +253,6 @@
         </div>
       {/each}
 
-      <div>
-        How many admin levels (eg. ADM2) are represented with P-Code columns? (eg. ADM2_PCODE)
-      </div>
-      {#each admin_levels as level}
-        <div class:low={checks[level]['levels_with_pcode'] !== level + 1}>
-          {checks[level]['levels_with_pcode']}
-        </div>
-      {/each}
-
-      <div><b>{scoreHeaders.columns_optional}</b></div>
-      {#each admin_levels as _}<div />{/each}
-
-      <div>
-        How many admin levels (eg. ADM2) are represented with reference name columns? (eg. ADM2_REF)
-      </div>
-      {#each admin_levels as level}
-        <div class:low={checks[level]['levels_with_reference_name'] !== 1}>
-          {checks[level]['levels_with_reference_name']}
-        </div>
-      {/each}
-
-      <div>
-        How many admin levels (eg. ADM2) are represented with alternative name columns? (eg.
-        ADM2ALT1_EN)
-      </div>
-      {#each admin_levels as level}
-        <div class:low={checks[level]['levels_with_alternative_name'] !== 1}>
-          {checks[level]['levels_with_alternative_name']}
-        </div>
-      {/each}
-
-      <div>How many alternative name columns are present? (eg. ADM2ALT1_EN)</div>
-      {#each admin_levels as level}
-        <div
-          class:low={!checks[level]['alternative_name_count'] ||
-            checks[level]['alternative_name_count'] !== checks[level]['language_count'] * 2}
-        >
-          {checks[level]['alternative_name_count']}
-        </div>
-      {/each}
-
       <div><b>Table Completeness</b></div>
       {#each admin_levels as _}<div />{/each}
 
@@ -298,7 +266,7 @@
         </div>
       {/each}
 
-      <div><b>Dates</b></div>
+      <div><b>{scoreHeaders.dates}</b></div>
       {#each admin_levels as _}<div />{/each}
 
       <div>What is the date of the dataset's source?</div>
@@ -314,9 +282,6 @@
           {/if}
         </div>
       {/each}
-
-      <div><b>{scoreHeaders.dates}</b></div>
-      {#each admin_levels as _}<div />{/each}
 
       <div>When was the dataset last validated on?</div>
       {#each admin_levels as level}

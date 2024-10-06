@@ -6,9 +6,8 @@ export const scoreHeaders = {
   geometry_area: 'Same Area',
   geometry_bounds: 'Same Bounds',
   columns_required: 'Required Columns',
-  columns_optional: 'Optional Columns',
   languages: 'Languages',
-  dates: 'Valid On',
+  dates: 'Dates',
 };
 
 export const scoreDescriptions = {
@@ -21,9 +20,9 @@ export const scoreDescriptions = {
   geometry_bounds:
     'Layers which all share the same geometric bounding box. Layers not sharing the same bounding box are partial layers which only cover a sub-section.',
   columns_required: 'Layers which have all required ADM columns. (ex. ADM2_EN, ADM2_PCODE, etc)',
-  columns_optional: 'Layers which have all optional ADM columns. (ex. ADM2_REF, ADM2ALT1_EN, etc)',
-  languages: 'Layers which have at least 1 language column detected.',
-  dates: 'Layers which have been validated on within the last 12 months.',
+  languages:
+    'Layers which have at least 1 language column detected and all language codes used are valid.',
+  dates: 'Layers which have dates and have been validated on within the last 12 months.',
 };
 
 export const checkDescriptions = {
