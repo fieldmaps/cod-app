@@ -177,10 +177,10 @@
       <div>{checkDescriptions['geom_min_max_x_y']}</div>
       {#each admin_levels as level}
         {@const validGap =
-          checks[level]['geom_min_x'] <= -180 &&
-          checks[level]['geom_min_y'] <= -90 &&
-          checks[level]['geom_max_x'] >= 180 &&
-          checks[level]['geom_max_y'] >= 90}
+          checks[level]['geom_min_x'] >= -180 &&
+          checks[level]['geom_min_y'] >= -90 &&
+          checks[level]['geom_max_x'] <= 180 &&
+          checks[level]['geom_max_y'] <= 90}
         <div class:low={!validGap}>
           {!validGap ? 'Yes' : 'No'}
         </div>
