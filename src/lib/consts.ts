@@ -31,6 +31,7 @@ export const checkDescriptions = {
   geom_is_valid: 'Are all geometries valid?',
   geom_invalid_reason: 'If any geometries are invalid, how come?',
   geom_proj: 'What EPSG projection is used in the layer?',
+  geom_min_max_x_y: 'Does the layer have an invalid bounding box?',
   geom_bounds: 'Are all layer bounding boxes the same?',
   geom_area_km: 'How large is the layer rounded to square kilometers?',
   geom_gaps: 'Are there any sliver gaps within the layer?',
