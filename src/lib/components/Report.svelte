@@ -174,15 +174,27 @@
         </div>
       {/each}
 
+      <div><b>{scoreHeaders.geometry_topology}</b></div>
+      {#each admin_levels as _}<div />{/each}
+
+      <div>{checkDescriptions['geom_gaps']}</div>
+      {#each admin_levels as level}
+        {@const validGap =
+          checks[level]['geom_gap_area_km'] === null ||
+          checks[level]['geom_gap_area_km'] > 0.0001 ||
+          checks[level]['geom_gap_thinness'] === null ||
+          checks[level]['geom_gap_thinness'] > 0.001}
+        <div class:low={!validGap}>
+          {!validGap ? 'Yes' : 'No'}
+        </div>
+      {/each}
+
       <div>{checkDescriptions['geom_overlaps_self']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['geom_overlaps_self']}>
           {checks[level]['geom_overlaps_self'] || 0}
         </div>
       {/each}
-
-      <div><b>{scoreHeaders.geometry_hierarchy}</b></div>
-      {#each admin_levels as _}<div />{/each}
 
       <div>{checkDescriptions['geom_overlaps_parent']}</div>
       {#each admin_levels as level}
@@ -194,16 +206,6 @@
       <div><b>{scoreHeaders.geometry_area}</b></div>
       {#each admin_levels as _}<div />{/each}
 
-      <div>{checkDescriptions['geom_area_km']}</div>
-      {#each admin_levels as level}
-        <div class:low={new Set(checks.map((x) => x.geom_area_km)).size > 1}>
-          {format(',.0f')(checks[level]['geom_area_km'])}
-        </div>
-      {/each}
-
-      <div><b>{scoreHeaders.geometry_bounds}</b></div>
-      {#each admin_levels as _}<div />{/each}
-
       <div>{checkDescriptions['geom_bounds']}</div>
       {#each admin_levels as _}
         {@const equal =
@@ -212,6 +214,13 @@
           ).size === 1}
         <div class:low={!equal}>
           {equal ? 'Yes' : 'No'}
+        </div>
+      {/each}
+
+      <div>{checkDescriptions['geom_area_km']}</div>
+      {#each admin_levels as level}
+        <div class:low={new Set(checks.map((x) => x.geom_area_km)).size > 1}>
+          {format(',.0f')(checks[level]['geom_area_km'])}
         </div>
       {/each}
 
@@ -253,16 +262,23 @@
         </div>
       {/each}
 
-      <div><b>Table Completeness</b></div>
+      <div><b>{scoreHeaders.languages}</b></div>
       {#each admin_levels as _}<div />{/each}
 
-      <div>What percentage of cells are empty?</div>
+      <div>What languages are used in the dataset?</div>
       {#each admin_levels as level}
-        <div>
-          {format('.0%')(
-            checks[level]['number_of_missing_records'] /
-              (checks[level]['total_number_of_records'] || 1),
-          )}
+        <div class:low={!checks[level]['language_count']}>
+          {#each range(checks[level]['language_count'] - 1) as idx}
+            {@const lang = new Intl.DisplayNames('en', { type: 'language' }).of(
+              checks[level]['language_' + (idx + 1)],
+            )}
+            <div class:low={lang === checks[level]['language_' + (idx + 1)]}>
+              {lang}
+            </div>
+          {/each}
+          {#if checks[level]['language_count'] === 0}
+            <div>No Language</div>
+          {/if}
         </div>
       {/each}
 
@@ -299,26 +315,6 @@
           {/each}
           {#if checks[level]['update_count'] === 0}
             <div>No Date</div>
-          {/if}
-        </div>
-      {/each}
-
-      <div><b>{scoreHeaders.languages}</b></div>
-      {#each admin_levels as _}<div />{/each}
-
-      <div>What languages are used in the dataset?</div>
-      {#each admin_levels as level}
-        <div class:low={!checks[level]['language_count']}>
-          {#each range(checks[level]['language_count'] - 1) as idx}
-            {@const lang = new Intl.DisplayNames('en', { type: 'language' }).of(
-              checks[level]['language_' + (idx + 1)],
-            )}
-            <div class:low={lang === checks[level]['language_' + (idx + 1)]}>
-              {lang}
-            </div>
-          {/each}
-          {#if checks[level]['language_count'] === 0}
-            <div>No Language</div>
           {/if}
         </div>
       {/each}

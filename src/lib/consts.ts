@@ -2,9 +2,8 @@ export const baseURL = 'https://cod-data.fieldmaps.io';
 
 export const scoreHeaders = {
   geometry_valid: 'Valid Geometry',
-  geometry_hierarchy: 'Hierarchical Geometry',
-  geometry_area: 'Same Area',
-  geometry_bounds: 'Same Bounds',
+  geometry_topology: 'Valid Topology',
+  geometry_area: 'Equal Area',
   columns_required: 'Required Columns',
   languages: 'Languages',
   date: 'Date',
@@ -14,12 +13,10 @@ export const scoreHeaders = {
 export const scoreDescriptions = {
   geometry_valid:
     'Layers which have valid geometry. Valid geometry is defined by having no empty geometries, only containing polygons (no points or lines), not containing any self-intersecting rings, using WGS84 CRS (EPSG:4326), and containing no self-overlapping polygons.',
-  geometry_hierarchy:
-    'Layers which have perfect hierarchical nesting. Hierarchy is defined by each sub-national unit belonging to only a single parent (does not overlap between mutliple higher levels).',
+  geometry_topology:
+    'Layers which have valid topology. Valid topology is defined as having no sliver gaps or overlaps within a layer, and having perfect hierarchical nesting (each feature only belongs to one parent feature).',
   geometry_area:
     'Layers which all share the same area. Layers not sharing the same area may have empty areas representing water bodies whereas other layers have them filled out.',
-  geometry_bounds:
-    'Layers which all share the same geometric bounding box. Layers not sharing the same bounding box are partial layers which only cover a sub-section.',
   columns_required: 'Layers which have all required ADM columns. (ex. ADM2_EN, ADM2_PCODE, etc)',
   languages:
     'Layers which have at least 1 language column detected and all language codes used are valid.',
@@ -36,6 +33,7 @@ export const checkDescriptions = {
   geom_proj: 'What EPSG projection is used in the layer?',
   geom_bounds: 'Are all layer bounding boxes the same?',
   geom_area_km: 'How large is the layer rounded to square kilometers?',
+  geom_gaps: 'Are there any sliver gaps within the layer?',
   geom_overlaps_self: 'How many polygons overlap each other within the same layer?',
   geom_overlaps_parent:
     'How many polygons are not hierarchal, meaning they overlap with more than one parent polygon?',
