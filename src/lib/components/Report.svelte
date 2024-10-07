@@ -134,7 +134,9 @@
 
       <div>{checkDescriptions['geom_count']}</div>
       {#each admin_levels as level}
-        <div class:low={!checks[level]['geom_count']}>
+        <div
+          class:low={level === 0 ? checks[level]['geom_count'] !== 1 : !checks[level]['geom_count']}
+        >
           {format(',.0f')(checks[level]['geom_count'])}
         </div>
       {/each}
