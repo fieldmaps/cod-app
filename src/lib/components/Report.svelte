@@ -255,32 +255,28 @@
       <div><b>{scoreHeaders.columns_required}</b></div>
       {#each admin_levels as _}<div />{/each}
 
-      <div>
-        How many admin levels (eg. ADM2) are represented with any columns starting with ADM?
-      </div>
+      <div>{checkDescriptions['levels_with_data']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['levels_with_data'] !== level + 1}>
           {checks[level]['levels_with_data']}
         </div>
       {/each}
 
-      <div>
-        How many admin levels (eg. ADM2) are represented with P-Code columns? (eg. ADM2_PCODE)
-      </div>
+      <div>{checkDescriptions['levels_with_pcode']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['levels_with_pcode'] !== level + 1}>
           {checks[level]['levels_with_pcode']}
         </div>
       {/each}
 
-      <div>How many admin levels (eg. ADM2) are represented with name columns? (eg. ADM2_EN)</div>
+      <div>{checkDescriptions['levels_with_name']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['levels_with_name'] !== level + 1}>
           {checks[level]['levels_with_name']}
         </div>
       {/each}
 
-      <div>How many name columns are present? (eg. ADM2_EN)</div>
+      <div>{checkDescriptions['name_count']}</div>
       {#each admin_levels as level}
         <div
           class:low={!checks[level]['name_count'] ||
@@ -293,7 +289,7 @@
       <div><b>{scoreHeaders.languages}</b></div>
       {#each admin_levels as _}<div />{/each}
 
-      <div>What languages are used in the dataset?</div>
+      <div>{checkDescriptions['languages']}</div>
       {#each admin_levels as level}
         <div class:low={!checks[level]['language_count']}>
           {#each range(checks[level]['language_count'] - 1) as idx}
@@ -313,7 +309,7 @@
       <div><b>{scoreHeaders.date}</b></div>
       {#each admin_levels as _}<div />{/each}
 
-      <div>What is the date of the dataset's source?</div>
+      <div>{checkDescriptions['date']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['date_count'] !== 1}>
           {#each range(checks[level]['date_count'] - 1) as idx}
@@ -330,7 +326,7 @@
       <div><b>{scoreHeaders.valid_on}</b></div>
       {#each admin_levels as _}<div />{/each}
 
-      <div>When was the dataset last validated on?</div>
+      <div>{checkDescriptions['valid_on']}</div>
       {#each admin_levels as level}
         <div
           class:low={checks[level]['update_count'] !== 1 ||

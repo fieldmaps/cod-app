@@ -39,4 +39,15 @@ export const checkDescriptions = {
   geom_overlaps_self: 'How many polygons overlap each other within the same layer?',
   geom_not_within_parent: "How many polygons aren't fully contained within their parent?",
   geom_not_within_pcode: 'How many polygons list a P-Code different than the one their parent has?',
+  levels_with_data:
+    'How many admin levels (eg. ADM2) are represented with any columns starting with ADM?',
+  levels_with_pcode:
+    'How many admin levels (eg. ADM2) are represented with P-Code columns? (eg. ADM2_PCODE)',
+  levels_with_name:
+    'How many admin levels (eg. ADM2) are represented with name columns? (eg. ADM2_EN)',
+  name_count:
+    'How many name columns are present? (should be number of languages multiplied by number of admin levels)',
+  languages: 'What languages are used in the dataset?',
+  date: "What is the date of the dataset's source?",
+  valid_on: 'When was the dataset last validated on?',
 };
