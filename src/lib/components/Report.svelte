@@ -280,7 +280,7 @@
       {#each admin_levels as level}
         <div
           class:low={!checks[level]['name_count'] ||
-            checks[level]['name_count'] !== checks[level]['language_count'] * (level + 1)}
+            checks[level]['name_count'] < checks[level]['language_count'] * (level + 1)}
         >
           {checks[level]['name_count']}
         </div>
