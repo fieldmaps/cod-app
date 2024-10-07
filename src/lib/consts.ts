@@ -25,10 +25,11 @@ export const scoreDescriptions = {
 };
 
 export const checkDescriptions = {
-  geom_not_empty: 'Are there any empty geometries contained within the layer?',
-  geom_is_polygon: 'Are all geometries in the layer of type polygon?',
-  geom_is_xy: 'Are all polygons 2 dimensional? Do they contain only XY coordinates and no Z?',
-  geom_is_valid: 'Are all geometries valid?',
+  geom_count: 'How many geometries are in the layer?',
+  geom_empty: 'How many geometries are empty?',
+  geom_not_polygon: 'How many geometries are not polygons?',
+  geom_has_z: 'How many geometries have 3D coordinates?',
+  geom_invalid: 'How many geometries are invalid?',
   geom_invalid_reason: 'If any geometries are invalid, how come?',
   geom_proj: 'What EPSG projection is used in the layer?',
   geom_min_max_x_y: 'Does the layer have an invalid bounding box?',

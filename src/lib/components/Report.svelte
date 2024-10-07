@@ -132,31 +132,38 @@
       <div><b>{scoreHeaders.geometry_valid}</b></div>
       {#each admin_levels as _}<div />{/each}
 
-      <div>{checkDescriptions['geom_not_empty']}</div>
+      <div>{checkDescriptions['geom_count']}</div>
       {#each admin_levels as level}
-        <div class:low={!checks[level]['geom_not_empty']}>
-          {checks[level]['geom_not_empty'] ? 'No' : 'Yes'}
+        <div class:low={!checks[level]['geom_count']}>
+          {format(',.0f')(checks[level]['geom_count'])}
         </div>
       {/each}
 
-      <div>{checkDescriptions['geom_is_polygon']}</div>
+      <div>{checkDescriptions['geom_empty']}</div>
       {#each admin_levels as level}
-        <div class:low={!checks[level]['geom_is_polygon']}>
-          {checks[level]['geom_is_polygon'] ? 'Yes' : 'No'}
+        <div class:low={checks[level]['geom_empty']}>
+          {format(',.0f')(checks[level]['geom_empty'])}
         </div>
       {/each}
 
-      <div>{checkDescriptions['geom_is_xy']}</div>
+      <div>{checkDescriptions['geom_not_polygon']}</div>
       {#each admin_levels as level}
-        <div class:low={!checks[level]['geom_is_xy']}>
-          {checks[level]['geom_is_xy'] ? 'Yes' : 'No'}
+        <div class:low={checks[level]['geom_not_polygon']}>
+          {format(',.0f')(checks[level]['geom_not_polygon'])}
         </div>
       {/each}
 
-      <div>{checkDescriptions['geom_is_valid']}</div>
+      <div>{checkDescriptions['geom_has_z']}</div>
       {#each admin_levels as level}
-        <div class:low={!checks[level]['geom_is_valid']}>
-          {checks[level]['geom_is_valid'] ? 'Yes' : 'No'}
+        <div class:low={checks[level]['geom_has_z']}>
+          {format(',.0f')(checks[level]['geom_has_z'])}
+        </div>
+      {/each}
+
+      <div>{checkDescriptions['geom_invalid']}</div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['geom_invalid']}>
+          {format(',.0f')(checks[level]['geom_invalid'])}
         </div>
       {/each}
 
