@@ -19,7 +19,7 @@ export const scoreDescriptions = {
     'Layers which all share the same area. Layers not sharing the same area may have empty areas representing water bodies whereas other layers have them filled out.',
   columns_required: 'Layers which have all required ADM columns. (ex. ADM2_EN, ADM2_PCODE, etc)',
   languages:
-    'Layers which have at least 1 language column detected and all language codes used are valid.',
+    'Layers which have at least 1 language column detected, contain no additional languages not found in other layers, and all language codes used are valid.',
   date: 'Layers which have a valid date value for their source.',
   valid_on: 'Layers which have been validated on within the last 12 months.',
 };
