@@ -208,10 +208,17 @@
         </div>
       {/each}
 
-      <div>{checkDescriptions['geom_overlaps_parent']}</div>
+      <div>{checkDescriptions['geom_not_within_parent']}</div>
       {#each admin_levels as level}
-        <div class:low={checks[level]['geom_overlaps_parent']}>
-          {checks[level]['geom_overlaps_parent'] || 0}
+        <div class:low={checks[level]['geom_not_within_parent']}>
+          {checks[level]['geom_not_within_parent'] || 0}
+        </div>
+      {/each}
+
+      <div>{checkDescriptions['geom_not_within_pcode']}</div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['geom_not_within_pcode']}>
+          {checks[level]['geom_not_within_pcode'] || 0}
         </div>
       {/each}
 
