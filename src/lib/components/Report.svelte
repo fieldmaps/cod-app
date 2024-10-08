@@ -252,37 +252,47 @@
         </div>
       {/each}
 
-      <div><b>{scoreHeaders.columns_required}</b></div>
+      <div><b>{scoreHeaders.table_pcodes}</b></div>
       {#each admin_levels as _}<div />{/each}
 
-      <div>{checkDescriptions['levels_with_data']}</div>
+      <div>{checkDescriptions['pcode_column_levels']}</div>
       {#each admin_levels as level}
-        <div class:low={checks[level]['levels_with_data'] !== level + 1}>
-          {checks[level]['levels_with_data']}
+        <div class:low={checks[level]['pcode_column_levels'] !== level + 1}>
+          {checks[level]['pcode_column_levels']}
         </div>
       {/each}
 
-      <div>{checkDescriptions['levels_with_pcode']}</div>
+      <div>{checkDescriptions['pcode_cell_empty']}</div>
       {#each admin_levels as level}
-        <div class:low={checks[level]['levels_with_pcode'] !== level + 1}>
-          {checks[level]['levels_with_pcode']}
+        <div class:low={checks[level]['pcode_cell_empty']}>
+          {checks[level]['pcode_cell_empty']}
         </div>
       {/each}
 
-      <div>{checkDescriptions['levels_with_name']}</div>
+      <div><b>{scoreHeaders.table_names}</b></div>
+      {#each admin_levels as _}<div />{/each}
+
+      <div>{checkDescriptions['name_column_levels']}</div>
       {#each admin_levels as level}
-        <div class:low={checks[level]['levels_with_name'] !== level + 1}>
-          {checks[level]['levels_with_name']}
+        <div class:low={checks[level]['name_column_levels'] !== level + 1}>
+          {checks[level]['name_column_levels']}
         </div>
       {/each}
 
-      <div>{checkDescriptions['name_count']}</div>
+      <div>{checkDescriptions['name_column_count']}</div>
       {#each admin_levels as level}
         <div
-          class:low={!checks[level]['name_count'] ||
-            checks[level]['name_count'] < checks[level]['language_count'] * (level + 1)}
+          class:low={!checks[level]['name_column_count'] ||
+            checks[level]['name_column_count'] < checks[level]['language_count'] * (level + 1)}
         >
-          {checks[level]['name_count']}
+          {checks[level]['name_column_count']}
+        </div>
+      {/each}
+
+      <div>{checkDescriptions['name_cell_empty']}</div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['name_cell_empty']}>
+          {checks[level]['name_cell_empty']}
         </div>
       {/each}
 
