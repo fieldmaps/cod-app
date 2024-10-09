@@ -43,12 +43,14 @@ export const checkDescriptions = {
   geom_not_within_pcode: 'How many polygons list a P-Code different than the one their parent has?',
   pcode_column_levels:
     'How many admin levels (eg. ADM2) are represented with P-Code columns? (eg. ADM2_PCODE)',
-  pcode_cell_empty: 'How many P-Code values are empty?',
+  pcode_empty: 'How many P-Codes are empty?',
+  pcode_not_iso2: "How many P-Codes don't start with a valid ISO-2?",
+  pcode_not_nested: "How many P-Codes con't nest with their parent values?",
   name_column_levels:
     'How many admin levels (eg. ADM2) are represented with name columns? (eg. ADM2_EN)',
   name_column_count:
     'How many name columns are present? (should be number of languages multiplied by number of admin levels)',
-  name_cell_empty: 'How many name values are empty?',
+  name_empty: 'How many names are empty?',
   languages: 'What languages are used in the dataset?',
   date: "What is the date of the dataset's source?",
   valid_on: 'When was the dataset last validated on?',

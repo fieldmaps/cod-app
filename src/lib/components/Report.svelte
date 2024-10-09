@@ -262,10 +262,24 @@
         </div>
       {/each}
 
-      <div>{checkDescriptions['pcode_cell_empty']}</div>
+      <div>{checkDescriptions['pcode_empty']}</div>
       {#each admin_levels as level}
-        <div class:low={checks[level]['pcode_cell_empty']}>
-          {checks[level]['pcode_cell_empty']}
+        <div class:low={checks[level]['pcode_empty']}>
+          {checks[level]['pcode_empty']}
+        </div>
+      {/each}
+
+      <div>{checkDescriptions['pcode_not_iso2']}</div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['pcode_not_iso2']}>
+          {checks[level]['pcode_not_iso2']}
+        </div>
+      {/each}
+
+      <div>{checkDescriptions['pcode_not_nested']}</div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['pcode_not_nested']}>
+          {checks[level]['pcode_not_nested']}
         </div>
       {/each}
 
@@ -289,10 +303,10 @@
         </div>
       {/each}
 
-      <div>{checkDescriptions['name_cell_empty']}</div>
+      <div>{checkDescriptions['name_empty']}</div>
       {#each admin_levels as level}
-        <div class:low={checks[level]['name_cell_empty']}>
-          {checks[level]['name_cell_empty']}
+        <div class:low={checks[level]['name_empty']}>
+          {checks[level]['name_empty']}
         </div>
       {/each}
 
