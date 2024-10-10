@@ -45,7 +45,8 @@ export const checkDescriptions = {
     'How many admin levels (eg. ADM2) are represented with P-Code columns? (eg. ADM2_PCODE)',
   pcode_empty: 'How many P-Codes are empty?',
   pcode_not_iso2: "How many P-Codes don't start with a valid ISO-2?",
-  pcode_not_nested: "How many P-Codes con't nest with their parent values?",
+  pcode_not_alnum: "How many P-Codes aren't alphanumeric?",
+  pcode_not_nested: "How many P-Codes can't nest with their parent value?",
   name_column_levels:
     'How many admin levels (eg. ADM2) are represented with name columns? (eg. ADM2_EN)',
   name_column_count:
