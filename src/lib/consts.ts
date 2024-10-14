@@ -18,7 +18,8 @@ export const scoreDescriptions = {
     'Layers which have valid topology. Valid topology is defined as having no sliver gaps or overlaps within a layer, with each polygon being fully contained within their parent.',
   geometry_area:
     'Layers which all share the same area. Layers not sharing the same area may have empty areas representing water bodies whereas other layers have them filled out.',
-  table_pcodes: 'Layers which have all required P-Code columns (ADM2_PCODE), with no empty cells.',
+  table_pcodes:
+    'Layers which have all required P-Code columns (ADM2_PCODE), with no empty cells, only alphanumeric characters, and hierarchical nesting codes.',
   table_names:
     'Layers which have all required name columns (ADM2_EN), with no empty cells, no columns all uppercase, no cells lacking alphabetic characters, and all characters matching the language code.',
   languages:
