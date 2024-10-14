@@ -20,7 +20,7 @@ export const scoreDescriptions = {
     'Layers which all share the same area. Layers not sharing the same area may have empty areas representing water bodies whereas other layers have them filled out.',
   table_pcodes: 'Layers which have all required P-Code columns (ADM2_PCODE), with no empty cells.',
   table_names:
-    'Layers which have all required Name columns (ADM2_EN), with no empty cells, no columns all uppercase, ',
+    'Layers which have all required name columns (ADM2_EN), with no empty cells, no columns all uppercase, no cells lacking alphabetic characters, and all characters matching the language code.',
   languages:
     'Layers which have at least 1 language column detected, contain no additional languages not found in other layers, and all language codes used are valid.',
   date: 'Layers which have a valid date value for their source.',
