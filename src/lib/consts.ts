@@ -54,7 +54,8 @@ export const checkDescriptions = {
     'How many name columns are present? (should be number of languages multiplied by number of admin levels)',
   name_empty: 'How many names are empty?',
   name_upper: 'How many names are all uppercase?',
-  name_no_valid: "How many names don't contain any characters? (eg. all numbers or punctuation)",
+  name_no_valid:
+    "How many names don't contain any alphabetic characters? (eg. all numbers or punctuation)",
   name_invalid: 'How many names use characters outside of their defined language?',
   name_illegal_char_count: 'How many illegal characters are detected?',
   name_illegal_chars: 'What illegal characters are detected?',
