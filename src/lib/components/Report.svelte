@@ -317,6 +317,52 @@
         </div>
       {/each}
 
+      <div>{checkDescriptions['name_upper']}</div>
+      {#each admin_levels as level}
+        <div
+          class:low={checks[level]['name_upper'] * checks[level]['name_column_count'] >=
+            checks[level]['name_cell_count']}
+        >
+          {checks[level]['name_upper']}
+        </div>
+      {/each}
+
+      <div>{checkDescriptions['name_no_valid']}</div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['name_no_valid']}>
+          {checks[level]['name_no_valid']}
+        </div>
+      {/each}
+
+      <div>{checkDescriptions['name_invalid']}</div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['name_invalid']}>
+          {checks[level]['name_invalid']}
+        </div>
+      {/each}
+
+      <div>{checkDescriptions['name_illegal_char_count']}</div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['name_illegal_char_count']}>
+          {checks[level]['name_illegal_char_count']}
+        </div>
+      {/each}
+
+      <div>{checkDescriptions['name_illegal_chars']}</div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['name_illegal_chars']}>
+          {#if checks[level]['name_illegal_char_count'] > 0 && checks[level]['name_illegal_char_count'] <= 10}
+            {#each checks[level]['name_illegal_chars'].split(',') as code}
+              <div>
+                <a href={`https://www.compart.com/en/unicode/${code}`}>{code}</a>
+              </div>
+            {/each}
+          {:else if checks[level]['name_illegal_char_count'] > 10}
+            <div>Too many</div>
+          {/if}
+        </div>
+      {/each}
+
       <div><b>{scoreHeaders.languages}</b></div>
       {#each admin_levels as _}<div />{/each}
 
