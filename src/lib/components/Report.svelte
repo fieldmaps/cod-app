@@ -378,10 +378,7 @@
 
       <div>{checkDescriptions['languages']}</div>
       {#each admin_levels as level}
-        <div
-          class:low={!checks[level]['language_count'] ||
-            checks[level]['language_count'] !== checks[level]['language_min']}
-        >
+        <div>
           {#each range(checks[level]['language_count'] - 1) as idx}
             {@const lang = new Intl.DisplayNames('en', { type: 'language' }).of(
               checks[level]['language_' + (idx + 1)],
