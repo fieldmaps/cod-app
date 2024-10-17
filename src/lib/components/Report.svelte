@@ -327,6 +327,20 @@
         </div>
       {/each}
 
+      <div>{checkDescriptions['name_spaces_double']}</div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['name_spaces_double']}>
+          {checks[level]['name_spaces_double']}
+        </div>
+      {/each}
+
+      <div>{checkDescriptions['name_spaces_strip']}</div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['name_spaces_strip']}>
+          {checks[level]['name_spaces_strip']}
+        </div>
+      {/each}
+
       <div>{checkDescriptions['name_upper']}</div>
       {#each admin_levels as level}
         <div
@@ -334,6 +348,16 @@
             checks[level]['name_cell_count']}
         >
           {checks[level]['name_upper']}
+        </div>
+      {/each}
+
+      <div>{checkDescriptions['name_lower']}</div>
+      {#each admin_levels as level}
+        <div
+          class:low={checks[level]['name_lower'] * checks[level]['name_column_count'] >=
+            checks[level]['name_cell_count']}
+        >
+          {checks[level]['name_lower']}
         </div>
       {/each}
 

@@ -54,7 +54,10 @@ export const checkDescriptions = {
   name_column_count:
     'How many name columns are present? (should be number of languages multiplied by number of admin levels)',
   name_empty: 'How many names are empty?',
+  name_spaces_double: 'How many names have double spaces?',
+  name_spaces_strip: 'How many names have leading or trailing spaces?',
   name_upper: 'How many names are all uppercase?',
+  name_lower: 'How many names are all lowercase?',
   name_no_valid:
     "How many names don't contain any alphabetic characters? (eg. all numbers or punctuation)",
   name_invalid: 'How many names use characters outside of their defined language?',
