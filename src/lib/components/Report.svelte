@@ -467,7 +467,7 @@
                   checks[level]['geom_area_km'],
               ) >= 0.01}
           >
-            {checks[level]['geom_area_km_attr']}
+            {format(',.0f')(checks[level]['geom_area_km_attr'])}
           </div>
         {:else}
           <div class="low">No Value</div>
