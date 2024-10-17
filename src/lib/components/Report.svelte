@@ -453,6 +453,26 @@
           {/if}
         </div>
       {/each}
+
+      <div><b>{scoreHeaders.area_sqkm}</b></div>
+      {#each admin_levels as _}<div />{/each}
+
+      <div>{checkDescriptions['area_sqkm']}</div>
+      {#each admin_levels as level}
+        {#if checks[level]['geom_area_km_attr']}
+          <div
+            class:low={!checks[level]['geom_area_km_attr'] ||
+              Math.abs(
+                (checks[level]['geom_area_km'] - checks[level]['geom_area_km_attr']) /
+                  checks[level]['geom_area_km'],
+              ) >= 0.01}
+          >
+            {checks[level]['geom_area_km_attr']}
+          </div>
+        {:else}
+          <div class="low">No Value</div>
+        {/if}
+      {/each}
     </div>
   </section>
 </main>

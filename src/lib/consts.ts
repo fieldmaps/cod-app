@@ -9,6 +9,7 @@ export const scoreHeaders = {
   languages: 'Languages',
   date: 'Date',
   valid_on: 'Valid On',
+  area_sqkm: 'Sq. km',
 };
 
 export const scoreDescriptions = {
@@ -26,6 +27,7 @@ export const scoreDescriptions = {
     'Layers which have at least 1 language column detected, contain no additional languages not found in other layers, and all language codes used are valid.',
   date: 'Layers which have a valid date value for their source.',
   valid_on: 'Layers which have been validated on within the last 12 months.',
+  area_sqkm: 'Layers which have an area attribute in square kilometers.',
 };
 
 export const checkDescriptions = {
@@ -66,4 +68,5 @@ export const checkDescriptions = {
   languages: 'What languages are used in the dataset?',
   date: "What is the date of the dataset's source?",
   valid_on: 'When was the dataset last validated on?',
+  area_sqkm: "What is the total area according to the layer's attribute value?",
 };
