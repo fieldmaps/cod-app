@@ -21,7 +21,7 @@ export const scoreDescriptions = {
   table_pcodes:
     'Layers which have all required P-Code columns (ADM2_PCODE), with no empty cells, only alphanumeric characters, starting with a valid ISO-2 code, and hierarchical nesting codes.',
   table_names:
-    'Layers which have all required name columns (ADM2_EN), with no empty cells, no columns all uppercase, no cells lacking alphabetic characters, and all characters matching the language code.',
+    'Layers which have all required name columns (ADM2_EN), with no empty cells, no double / leading / trailing spaces, no columns all uppercase / lowercase, no cells lacking alphabetic characters, and all characters matching the language code.',
   languages:
     'Layers which have at least 1 language column detected, contain no additional languages not found in other layers, and all language codes used are valid.',
   date: 'Layers which have a valid date value for their source.',
