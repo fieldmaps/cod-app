@@ -74,11 +74,21 @@
           <a href={metadata.hdx_url}>HDX</a>
         {/if}
       </div>
-      <div><b>Downloads:</b></div>
+      <div><b>Download Boundaries (GPKG):</b></div>
       <div>
         {#each admin_levels as level}
           <a
             href={`https://cod-data.fieldmaps.io/boundaries/${iso3.toLowerCase()}_adm${level}.gpkg`}
+          >
+            {`Admin ${level}`}
+          </a>&nbsp;
+        {/each}
+      </div>
+      <div><b>Download Attributes (CSV):</b></div>
+      <div>
+        {#each admin_levels as level}
+          <a
+            href={`https://cod-data.fieldmaps.io/attributes/${iso3.toLowerCase()}_adm${level}.csv`}
           >
             {`Admin ${level}`}
           </a>&nbsp;
