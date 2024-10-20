@@ -389,23 +389,23 @@
         </div>
       {/each}
 
-      <div>{checkDescriptions['name_illegal_char_count']}</div>
+      <div>{checkDescriptions['name_invalid_char_count']}</div>
       {#each admin_levels as level}
-        <div class:low={checks[level]['name_illegal_char_count']}>
-          {checks[level]['name_illegal_char_count']}
+        <div class:low={checks[level]['name_invalid_char_count']}>
+          {checks[level]['name_invalid_char_count']}
         </div>
       {/each}
 
-      <div>{checkDescriptions['name_illegal_chars']}</div>
+      <div>{checkDescriptions['name_invalid_chars']}</div>
       {#each admin_levels as level}
-        <div class:low={checks[level]['name_illegal_chars']}>
-          {#if checks[level]['name_illegal_char_count'] > 0 && checks[level]['name_illegal_char_count'] <= 10}
-            {#each checks[level]['name_illegal_chars'].split(',') as code}
+        <div class:low={checks[level]['name_invalid_chars']}>
+          {#if checks[level]['name_invalid_char_count'] > 0 && checks[level]['name_invalid_char_count'] <= 10}
+            {#each checks[level]['name_invalid_chars'].split(',') as code}
               <div>
                 <a href={`https://www.compart.com/en/unicode/${code}`}>{code}</a>
               </div>
             {/each}
-          {:else if checks[level]['name_illegal_char_count'] > 10}
+          {:else if checks[level]['name_invalid_char_count'] > 10}
             <div>Too many</div>
           {/if}
         </div>

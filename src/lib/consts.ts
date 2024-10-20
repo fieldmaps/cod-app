@@ -65,8 +65,8 @@ export const checkDescriptions = {
   name_no_valid:
     "How many names don't contain any alphabetic characters? (eg. all numbers or punctuation)",
   name_invalid: 'How many names use characters outside of their defined language?',
-  name_illegal_char_count: 'How many invalid characters are detected?',
-  name_illegal_chars: 'What invalid characters are detected?',
+  name_invalid_char_count: 'How many invalid characters are detected?',
+  name_invalid_chars: 'What invalid characters are detected?',
   languages: 'What languages are used in the dataset?',
   date: "What is the date of the dataset's source?",
   valid_on: 'When was the dataset last validated on?',
