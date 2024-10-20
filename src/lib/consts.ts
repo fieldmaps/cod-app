@@ -20,7 +20,7 @@ export const scoreDescriptions = {
   geometry_area:
     'Layers which all share the same area. Layers not sharing the same area may have empty areas representing water bodies whereas other layers have them filled out.',
   table_pcodes:
-    'Layers which have all required P-Code columns (ADM2_PCODE), with no empty cells, only alphanumeric characters, starting with a valid ISO-2 code, and hierarchical nesting codes.',
+    'Layers which have all required P-Code columns (ADM2_PCODE), with no empty cells, only alphanumeric characters, starting with a valid ISO-2 code, no duplicate codes, all codes within a column having the same length, and hierarchical nesting codes.',
   table_names:
     'Layers which have all required name columns (ADM2_EN), with no empty cells, no double / leading / trailing spaces, no columns all uppercase / lowercase, no cells lacking alphabetic characters, and all characters matching the language code.',
   languages:
@@ -50,6 +50,8 @@ export const checkDescriptions = {
   pcode_empty: 'How many P-Codes are empty?',
   pcode_not_iso2: "How many P-Codes don't start with a valid ISO-2 code?",
   pcode_not_alnum: "How many P-Codes aren't alphanumeric?",
+  pcode_lengths: 'How many different P-Code lengths are there?',
+  pcode_duplicated: 'How many P-Codes are duplicated?',
   pcode_not_nested: "How many P-Codes can't nest with their parent value?",
   name_column_levels:
     'How many admin levels (eg. ADM2) are represented with name columns? (eg. ADM2_EN)',

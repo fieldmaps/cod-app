@@ -293,6 +293,20 @@
         </div>
       {/each}
 
+      <div>{checkDescriptions['pcode_lengths']}</div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['pcode_lengths'] > 1}>
+          {checks[level]['pcode_lengths']}
+        </div>
+      {/each}
+
+      <div>{checkDescriptions['pcode_duplicated']}</div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['pcode_duplicated']}>
+          {checks[level]['pcode_duplicated']}
+        </div>
+      {/each}
+
       <div>{checkDescriptions['pcode_not_nested']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['pcode_not_nested']}>
