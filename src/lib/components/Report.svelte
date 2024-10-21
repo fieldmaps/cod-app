@@ -409,7 +409,7 @@
           {#if checks[level]['name_invalid_char_count'] > 0 && checks[level]['name_invalid_char_count'] <= 10}
             {#each checks[level]['name_invalid_chars'].split(',') as code}
               <div>
-                <a href={`https://www.compart.com/en/unicode/${code}`}>{code}</a>
+                <a href={`https://unicode-explorer.com/c/${code.split('+')[1]}`}>{code}</a>
               </div>
             {/each}
           {:else if checks[level]['name_invalid_char_count'] > 10}
