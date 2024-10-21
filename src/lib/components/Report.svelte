@@ -338,7 +338,7 @@
         How many Admin 0 names don't match their <a href="https://unterm.un.org/unterm2/en/country"
           >UNTERM</a
         >
-        or <a href="https://unstats.un.org/unsd/methodology/m49/overview/">M49</a> short names?
+        or <a href="https://unstats.un.org/unsd/methodology/m49/overview/">UN M49</a> short names?
       </div>
       {#each admin_levels as level}
         <div class:low={checks[level]['name_invalid_adm0']}>
