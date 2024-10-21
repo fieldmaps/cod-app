@@ -334,7 +334,11 @@
         </div>
       {/each}
 
-      <div>{checkDescriptions['name_invalid_adm0']}</div>
+      <div>
+        How many Admin 0 names don't match their <a href="https://unterm.un.org/unterm2/en/country"
+          >UNTERM short name</a
+        >?
+      </div>
       {#each admin_levels as level}
         <div class:low={checks[level]['name_invalid_adm0']}>
           {checks[level]['name_invalid_adm0']}
