@@ -334,6 +334,13 @@
         </div>
       {/each}
 
+      <div>{checkDescriptions['name_invalid_adm0']}</div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['name_invalid_adm0']}>
+          {checks[level]['name_invalid_adm0']}
+        </div>
+      {/each}
+
       <div>{checkDescriptions['name_empty']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['name_empty']}>

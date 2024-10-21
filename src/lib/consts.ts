@@ -64,6 +64,7 @@ export const checkDescriptions = {
   name_lower: 'How many names are all lowercase?',
   name_no_valid:
     "How many names don't contain any alphabetic characters? (eg. all numbers or punctuation)",
+  name_invalid_adm0: "How many Admin 0 names don't match the official UNTERM short name?",
   name_invalid: 'How many names use characters outside of their defined language?',
   name_invalid_char_count: 'How many invalid characters are detected?',
   name_invalid_chars: 'What invalid characters are detected?',
