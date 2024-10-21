@@ -336,8 +336,9 @@
 
       <div>
         How many Admin 0 names don't match their <a href="https://unterm.un.org/unterm2/en/country"
-          >UNTERM short name</a
-        >?
+          >UNTERM</a
+        >
+        or <a href="https://www.iso.org/obp/ui">ISO</a> short names?
       </div>
       {#each admin_levels as level}
         <div class:low={checks[level]['name_invalid_adm0']}>
