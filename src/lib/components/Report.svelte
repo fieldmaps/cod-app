@@ -317,6 +317,18 @@
       <div><b>{scoreHeaders.table_names}</b></div>
       {#each admin_levels as _}<div />{/each}
 
+      <div>
+        How many Admin 0 names don't match their <a href="https://unterm.un.org/unterm2/en/country"
+          >UNTERM</a
+        >
+        or <a href="https://unstats.un.org/unsd/methodology/m49/overview/">UN M49</a> short names?
+      </div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['name_invalid_adm0']}>
+          {checks[level]['name_invalid_adm0']}
+        </div>
+      {/each}
+
       <div>{checkDescriptions['name_column_levels']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['name_column_levels'] !== level + 1}>
@@ -331,18 +343,6 @@
             checks[level]['name_column_count'] < checks[level]['language_count'] * (level + 1)}
         >
           {checks[level]['name_column_count']}
-        </div>
-      {/each}
-
-      <div>
-        How many Admin 0 names don't match their <a href="https://unterm.un.org/unterm2/en/country"
-          >UNTERM</a
-        >
-        or <a href="https://unstats.un.org/unsd/methodology/m49/overview/">UN M49</a> short names?
-      </div>
-      {#each admin_levels as level}
-        <div class:low={checks[level]['name_invalid_adm0']}>
-          {checks[level]['name_invalid_adm0']}
         </div>
       {/each}
 
