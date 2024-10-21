@@ -69,6 +69,8 @@ export const checkDescriptions = {
   name_invalid_char_count: 'How many invalid characters are detected?',
   name_invalid_chars: 'What invalid characters are detected?',
   languages: 'What languages are used in the dataset?',
+  language_parent: "Does the layer have the same or fewer languages as it's parent?",
+  language_romanized: 'Is the first listed language one of: English, French, Spanish or Portugese?',
   date: "What is the date of the dataset's source?",
   valid_on: 'When was the dataset last validated on?',
   area_sqkm: "What is the total area according to the layer's attribute value?",

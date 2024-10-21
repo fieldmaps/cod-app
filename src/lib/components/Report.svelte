@@ -442,6 +442,24 @@
         </div>
       {/each}
 
+      <div>{checkDescriptions['language_romanized']}</div>
+      {#each admin_levels as level}
+        {@const romanized = ['en', 'fr', 'es', 'pt'].includes(checks[level]['language_1'])}
+        <div class:low={!romanized}>
+          {romanized ? 'Yes' : 'No'}
+        </div>
+      {/each}
+
+      <div>{checkDescriptions['language_parent']}</div>
+      {#each admin_levels as level}
+        {@const leParent =
+          !checks[level]['language_parent'] ||
+          checks[level]['language_count'] <= checks[level]['language_parent']}
+        <div class:low={!leParent}>
+          {leParent ? 'Yes' : 'No'}
+        </div>
+      {/each}
+
       <div><b>{scoreHeaders.date}</b></div>
       {#each admin_levels as _}<div />{/each}
 
