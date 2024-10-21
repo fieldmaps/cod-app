@@ -353,6 +353,13 @@
         </div>
       {/each}
 
+      <div>{checkDescriptions['name_duplicated']}</div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['name_duplicated']}>
+          {checks[level]['name_duplicated']}
+        </div>
+      {/each}
+
       <div>{checkDescriptions['name_spaces_double']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['name_spaces_double']}>

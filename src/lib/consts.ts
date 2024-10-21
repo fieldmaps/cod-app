@@ -22,9 +22,9 @@ export const scoreDescriptions = {
   table_pcodes:
     'Layers which have all required P-Code columns (ADM2_PCODE), with no empty cells, only alphanumeric characters, starting with a valid ISO-2 code, no duplicate codes, all codes within a column having the same length, and hierarchical nesting codes.',
   table_names:
-    'Layers which have all required name columns (ADM2_EN), with no empty cells, no double / leading / trailing spaces, no columns all uppercase / lowercase, no cells lacking alphabetic characters, and all characters matching the language code.',
+    'Layers which have all required name columns (ADM2_EN), with no empty cells, no duplicate rows, no double / leading / trailing spaces, no columns all uppercase / lowercase, no cells lacking alphabetic characters, and all characters matching the language code.',
   languages:
-    'Layers which have at least 1 language column detected, contain no additional languages not found in other layers, and all language codes used are valid.',
+    "Layers which have at least 1 language column detected, all language codes used are valid, a romanized language is featured first, and layers don't have more languages than their parents.",
   date: 'Layers which have a valid date value for their source.',
   valid_on: 'Layers which have been validated on within the last 12 months.',
   area_sqkm: 'Layers which have an area attribute in square kilometers.',
@@ -58,6 +58,7 @@ export const checkDescriptions = {
   name_column_count:
     'How many name columns are present? (should be number of languages multiplied by number of admin levels)',
   name_empty: 'How many names are empty?',
+  name_duplicated: 'How many rows have duplicated names (considers all admin levels)?',
   name_spaces_double: 'How many names have double spaces?',
   name_spaces_strip: 'How many names have leading or trailing spaces?',
   name_upper: 'How many names are all uppercase?',
