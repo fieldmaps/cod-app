@@ -72,7 +72,7 @@ export const checkDescriptions = {
   name_invalid: 'How many names use characters outside of their defined language?',
   name_invalid_char_count: 'How many invalid characters are detected?',
   name_invalid_chars: 'What invalid characters are detected?',
-  languages: 'What languages are used in the dataset?',
+  languages: 'What languages are used in the dataset, are they all valid codes?',
   language_parent: "Does the layer have the same or fewer languages as it's parent?",
   language_romanized: 'Does the first listed language use a Roman (Latin) script?',
   date: "What is the date of the dataset's source?",
