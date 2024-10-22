@@ -273,7 +273,7 @@
               Math.abs(
                 (checks[level]['geom_area_km'] - checks[level]['geom_area_km_attr']) /
                   checks[level]['geom_area_km'],
-              ) >= 0.01}
+              ) >= 0.00001}
           >
             {format(',.0f')(checks[level]['geom_area_km_attr'])}
           </div>
@@ -524,6 +524,44 @@
           {/if}
         </div>
       {/each}
+
+      <div>{checkDescriptions['valid_to_exists']}</div>
+      {#each admin_levels as level}
+        <div class:low={!checks[level]['valid_to_exists']}>
+          {checks[level]['valid_to_exists'] ? 'Yes' : 'No'}
+        </div>
+      {/each}
+
+      <div>{checkDescriptions['valid_to_empty']}</div>
+      {#each admin_levels as level}
+        <div class:low={!checks[level]['valid_to_empty']}>
+          {checks[level]['valid_to_empty'] ? 'Yes' : 'No'}
+        </div>
+      {/each}
+
+      <div><b>Other</b></div>
+      {#each admin_levels as _}<div />{/each}
+
+      <div>{checkDescriptions['ref_name_columns']}</div>
+      {#each admin_levels as level}
+        <div>
+          {format(',.0f')(checks[level]['ref_name_column_count'])}
+        </div>
+      {/each}
+
+      <div>{checkDescriptions['alt_name_columns']}</div>
+      {#each admin_levels as level}
+        <div>
+          {format(',.0f')(checks[level]['alt_name_column_count'])}
+        </div>
+      {/each}
+
+      <div>{checkDescriptions['other_columns']}</div>
+      {#each admin_levels as level}
+        <div>
+          {format(',.0f')(checks[level]['other_column_count'])}
+        </div>
+      {/each}
     </div>
   </section>
 </main>
@@ -555,7 +593,7 @@
     }
   }
   main {
-    margin: 1rem auto;
+    margin: 1rem auto 5rem auto;
     max-width: 1024px;
   }
   section {

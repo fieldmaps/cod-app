@@ -19,6 +19,8 @@ export const scoreDescriptions = {
     'Layers which have valid topology. Valid topology is defined as having no sliver gaps or overlaps within a layer, with each polygon being fully contained within their parent.',
   geometry_area:
     'Layers which all share the same area. Layers not sharing the same area may have empty areas representing water bodies whereas other layers have them filled out.',
+  area_sqkm:
+    'Layers which have an area attribute in square kilometers and value matches area calculated above using NASA EASE-Grid 2.0.',
   table_pcodes:
     'Layers which have all required P-Code columns (ADM2_PCODE), with no empty cells, only alphanumeric characters, starting with a valid ISO-2 code, no duplicate codes, all codes within a column having the same length, and hierarchical nesting codes.',
   table_names:
@@ -27,7 +29,6 @@ export const scoreDescriptions = {
     "Layers which have at least 1 language column detected, all language codes used are valid, a romanized language is featured first, and layers don't have more languages than their parents.",
   date: 'Layers which have a valid date value for their source.',
   valid_on: 'Layers which have been validated on within the last 12 months.',
-  area_sqkm: 'Layers which have an area attribute in square kilometers.',
 };
 
 export const checkDescriptions = {
@@ -74,5 +75,10 @@ export const checkDescriptions = {
   language_romanized: 'Is the first listed language one of: English, French, Spanish or Portugese?',
   date: "What is the date of the dataset's source?",
   valid_on: 'When was the dataset last validated on?',
+  valid_to_exists: 'Does the layer have a validTo field?',
+  valid_to_empty: "Is the layer's validTo field empty?",
   area_sqkm: "What is the total area according to the layer's attribute value?",
+  ref_name_columns: 'How many reference name fields are present?',
+  alt_name_columns: 'How many alternative name fields are present?',
+  other_columns: 'How many other fields are present?',
 };
