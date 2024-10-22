@@ -539,7 +539,7 @@
         </div>
       {/each}
 
-      <div><b>Other</b></div>
+      <div><b>{scoreHeaders.other}</b></div>
       {#each admin_levels as _}<div />{/each}
 
       <div>{checkDescriptions['ref_name_columns']}</div>
