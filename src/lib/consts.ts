@@ -10,6 +10,7 @@ export const scoreHeaders = {
   date: 'Date',
   valid_on: 'Valid On',
   area_sqkm: 'Sq. km',
+  other: 'Other',
 };
 
 export const scoreDescriptions = {
@@ -29,6 +30,7 @@ export const scoreDescriptions = {
     "Layers which have at least 1 language column detected, all language codes used are valid, a romanized language is featured first, and layers don't have more languages than their parents.",
   date: 'Layers which have a valid date value for their source.',
   valid_on: 'Layers which have been validated on within the last 12 months.',
+  other: 'Layers which have no fields other than expected values.',
 };
 
 export const checkDescriptions = {
