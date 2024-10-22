@@ -472,7 +472,9 @@
 
       <div>{checkDescriptions['language_romanized']}</div>
       {#each admin_levels as level}
-        {@const romanized = ['en', 'fr', 'es', 'pt'].includes(checks[level]['language_1'])}
+        {@const romanized = ['en', 'es', 'fr', 'hu', 'id', 'nl', 'pl', 'pt', 'ro', 'sk'].includes(
+          checks[level]['language_1'],
+        )}
         <div class:low={!romanized}>
           {romanized ? 'Yes' : 'No'}
         </div>

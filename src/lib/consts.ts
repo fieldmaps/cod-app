@@ -74,7 +74,7 @@ export const checkDescriptions = {
   name_invalid_chars: 'What invalid characters are detected?',
   languages: 'What languages are used in the dataset?',
   language_parent: "Does the layer have the same or fewer languages as it's parent?",
-  language_romanized: 'Is the first listed language one of: English, French, Spanish or Portugese?',
+  language_romanized: 'Does the first listed language use a Roman (Latin) script?',
   date: "What is the date of the dataset's source?",
   valid_on: 'When was the dataset last validated on?',
   valid_to_exists: 'Does the layer have a validTo field?',
