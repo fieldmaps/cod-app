@@ -223,21 +223,21 @@
       <div>{checkDescriptions['geom_overlaps_self']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['geom_overlaps_self']}>
-          {checks[level]['geom_overlaps_self'] || 0}
+          {format(',.0f')(checks[level]['geom_overlaps_self'] || 0)}
         </div>
       {/each}
 
       <div>{checkDescriptions['geom_not_within_parent']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['geom_not_within_parent']}>
-          {checks[level]['geom_not_within_parent'] || 0}
+          {format(',.0f')(checks[level]['geom_not_within_parent'] || 0)}
         </div>
       {/each}
 
       <div>{checkDescriptions['geom_not_within_pcode']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['geom_not_within_pcode']}>
-          {checks[level]['geom_not_within_pcode'] || 0}
+          {format(',.0f')(checks[level]['geom_not_within_pcode'] || 0)}
         </div>
       {/each}
 
@@ -288,49 +288,49 @@
       <div>{checkDescriptions['pcode_column_levels']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['pcode_column_levels'] !== level + 1}>
-          {checks[level]['pcode_column_levels']}
+          {format(',.0f')(checks[level]['pcode_column_levels'])}
         </div>
       {/each}
 
       <div>{checkDescriptions['pcode_empty']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['pcode_empty']}>
-          {checks[level]['pcode_empty']}
+          {format(',.0f')(checks[level]['pcode_empty'])}
         </div>
       {/each}
 
       <div>{checkDescriptions['pcode_not_iso2']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['pcode_not_iso2']}>
-          {checks[level]['pcode_not_iso2']}
+          {format(',.0f')(checks[level]['pcode_not_iso2'])}
         </div>
       {/each}
 
       <div>{checkDescriptions['pcode_not_alnum']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['pcode_not_alnum']}>
-          {checks[level]['pcode_not_alnum']}
+          {format(',.0f')(checks[level]['pcode_not_alnum'])}
         </div>
       {/each}
 
       <div>{checkDescriptions['pcode_lengths']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['pcode_lengths'] > 1}>
-          {checks[level]['pcode_lengths']}
+          {format(',.0f')(checks[level]['pcode_lengths'])}
         </div>
       {/each}
 
       <div>{checkDescriptions['pcode_duplicated']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['pcode_duplicated']}>
-          {checks[level]['pcode_duplicated']}
+          {format(',.0f')(checks[level]['pcode_duplicated'])}
         </div>
       {/each}
 
       <div>{checkDescriptions['pcode_not_nested']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['pcode_not_nested']}>
-          {checks[level]['pcode_not_nested']}
+          {format(',.0f')(checks[level]['pcode_not_nested'])}
         </div>
       {/each}
 
@@ -345,14 +345,14 @@
       </div>
       {#each admin_levels as level}
         <div class:low={checks[level]['name_invalid_adm0']}>
-          {checks[level]['name_invalid_adm0']}
+          {format(',.0f')(checks[level]['name_invalid_adm0'])}
         </div>
       {/each}
 
       <div>{checkDescriptions['name_column_levels']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['name_column_levels'] !== level + 1}>
-          {checks[level]['name_column_levels']}
+          {format(',.0f')(checks[level]['name_column_levels'])}
         </div>
       {/each}
 
@@ -362,35 +362,35 @@
           class:low={!checks[level]['name_column_count'] ||
             checks[level]['name_column_count'] < checks[level]['language_count'] * (level + 1)}
         >
-          {checks[level]['name_column_count']}
+          {format(',.0f')(checks[level]['name_column_count'])}
         </div>
       {/each}
 
       <div>{checkDescriptions['name_empty']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['name_empty']}>
-          {checks[level]['name_empty']}
+          {format(',.0f')(checks[level]['name_empty'])}
         </div>
       {/each}
 
       <div>{checkDescriptions['name_duplicated']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['name_duplicated']}>
-          {checks[level]['name_duplicated']}
+          {format(',.0f')(checks[level]['name_duplicated'])}
         </div>
       {/each}
 
       <div>{checkDescriptions['name_spaces_double']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['name_spaces_double']}>
-          {checks[level]['name_spaces_double']}
+          {format(',.0f')(checks[level]['name_spaces_double'])}
         </div>
       {/each}
 
       <div>{checkDescriptions['name_spaces_strip']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['name_spaces_strip']}>
-          {checks[level]['name_spaces_strip']}
+          {format(',.0f')(checks[level]['name_spaces_strip'])}
         </div>
       {/each}
 
@@ -400,7 +400,7 @@
           class:low={checks[level]['name_upper'] * checks[level]['name_column_count'] >=
             checks[level]['name_cell_count']}
         >
-          {checks[level]['name_upper']}
+          {format(',.0f')(checks[level]['name_upper'])}
         </div>
       {/each}
 
@@ -410,28 +410,28 @@
           class:low={checks[level]['name_lower'] * checks[level]['name_column_count'] >=
             checks[level]['name_cell_count']}
         >
-          {checks[level]['name_lower']}
+          {format(',.0f')(checks[level]['name_lower'])}
         </div>
       {/each}
 
       <div>{checkDescriptions['name_no_valid']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['name_no_valid']}>
-          {checks[level]['name_no_valid']}
+          {format(',.0f')(checks[level]['name_no_valid'])}
         </div>
       {/each}
 
       <div>{checkDescriptions['name_invalid']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['name_invalid']}>
-          {checks[level]['name_invalid']}
+          {format(',.0f')(checks[level]['name_invalid'])}
         </div>
       {/each}
 
       <div>{checkDescriptions['name_invalid_char_count']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['name_invalid_char_count']}>
-          {checks[level]['name_invalid_char_count']}
+          {format(',.0f')(checks[level]['name_invalid_char_count'])}
         </div>
       {/each}
 
@@ -558,7 +558,7 @@
 
       <div>{checkDescriptions['other_columns']}</div>
       {#each admin_levels as level}
-        <div>
+        <div class:low={checks[level]['other_column_count']}>
           {format(',.0f')(checks[level]['other_column_count'])}
         </div>
       {/each}
