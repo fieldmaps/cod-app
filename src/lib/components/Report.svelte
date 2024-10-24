@@ -299,6 +299,13 @@
         </div>
       {/each}
 
+      <div>{checkDescriptions['pcode_lengths']}</div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['pcode_lengths'] > 1}>
+          {format(',.0f')(checks[level]['pcode_lengths'])}
+        </div>
+      {/each}
+
       <div>{checkDescriptions['pcode_empty']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['pcode_empty']}>
@@ -317,13 +324,6 @@
       {#each admin_levels as level}
         <div class:low={checks[level]['pcode_not_alnum']}>
           {format(',.0f')(checks[level]['pcode_not_alnum'])}
-        </div>
-      {/each}
-
-      <div>{checkDescriptions['pcode_lengths']}</div>
-      {#each admin_levels as level}
-        <div class:low={checks[level]['pcode_lengths'] > 1}>
-          {format(',.0f')(checks[level]['pcode_lengths'])}
         </div>
       {/each}
 
