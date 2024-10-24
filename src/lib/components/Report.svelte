@@ -234,10 +234,17 @@
         </div>
       {/each}
 
-      <div>{checkDescriptions['geom_not_within_pcode']}</div>
+      <div>{checkDescriptions['geom_within_pcode_mismatch']}</div>
       {#each admin_levels as level}
-        <div class:low={checks[level]['geom_not_within_pcode']}>
-          {format(',.0f')(checks[level]['geom_not_within_pcode'] || 0)}
+        <div class:low={checks[level]['geom_within_pcode_mismatch']}>
+          {format(',.0f')(checks[level]['geom_within_pcode_mismatch'])}
+        </div>
+      {/each}
+
+      <div>{checkDescriptions['geom_within_name_mismatch']}</div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['geom_within_name_mismatch']}>
+          {format(',.0f')(checks[level]['geom_within_name_mismatch'])}
         </div>
       {/each}
 
