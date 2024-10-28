@@ -165,13 +165,6 @@
         </div>
       {/each}
 
-      <div>{checkDescriptions['geom_has_triangle']}</div>
-      {#each admin_levels as level}
-        <div class:low={checks[level]['geom_has_triangle']}>
-          {format(',.0f')(checks[level]['geom_has_triangle'])}
-        </div>
-      {/each}
-
       <div>{checkDescriptions['geom_has_z']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['geom_has_z']}>
@@ -224,6 +217,13 @@
           checks[level]['geom_gap_thinness'] > 0.001}
         <div class:low={!validGap}>
           {!validGap ? 'Yes' : 'No'}
+        </div>
+      {/each}
+
+      <div>{checkDescriptions['geom_has_triangle']}</div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['geom_has_triangle']}>
+          {format(',.0f')(checks[level]['geom_has_triangle'])}
         </div>
       {/each}
 
