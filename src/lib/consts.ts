@@ -15,7 +15,7 @@ export const scoreHeaders = {
 
 export const scoreDescriptions = {
   geometry_valid:
-    'Layers which have valid geometry. Valid geometry is defined by having no empty geometries, only containing polygons (no points or lines), not containing any self-intersecting rings, using WGS84 CRS (EPSG:4326), and has a valid bounding box.',
+    'Layers which have valid geometry. Valid geometry is defined by having no empty geometries, only containing polygons (no points or lines), not containing any triangle polygons or self-intersecting rings, using WGS84 CRS (EPSG:4326), and has a valid bounding box.',
   geometry_topology:
     'Layers which have valid topology. Valid topology is defined as having no sliver gaps or overlaps within a layer, with each polygon being fully contained within their parent.',
   geometry_area:
@@ -37,6 +37,7 @@ export const checkDescriptions = {
   geom_count: 'How many geometries are in the layer?',
   geom_empty: 'How many geometries are empty?',
   geom_not_polygon: 'How many geometries are not polygons?',
+  geom_has_triangle: 'How many geometries are triangles?',
   geom_has_z: 'How many geometries have 3D coordinates?',
   geom_invalid: 'How many geometries are invalid?',
   geom_invalid_reason: 'If any geometries are invalid, how come?',
