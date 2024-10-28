@@ -13,12 +13,12 @@
     timeZone: 'UTC',
   };
 
-  let metadata = {};
-  let checks = [];
-  let scores = {};
-  let date = new Date();
-  let admin_levels = [];
-  let levels = -1;
+  let metadata = $state({});
+  let checks = $state([]);
+  let scores = $state({});
+  let date = $state(new Date());
+  let admin_levels = $state([]);
+  let levels = $state(-1);
 
   onMount(async () => {
     const metadataAll = await getCSV('tables/metadata');
@@ -60,7 +60,7 @@
     </div>
   </section>
 
-  <div class="pagebreak" />
+  <div class="pagebreak"></div>
 
   <section>
     <h2>Metadata</h2>
@@ -111,7 +111,7 @@
     </div>
   </section>
 
-  <div class="pagebreak" />
+  <div class="pagebreak"></div>
 
   <section>
     <h2>Scores</h2>
@@ -129,18 +129,18 @@
     </div>
   </section>
 
-  <div class="pagebreak" />
+  <div class="pagebreak"></div>
 
   <section>
     <h2>Checks</h2>
     <div class="check-grid" style="--levels: {levels + 1}">
-      <div />
+      <div></div>
       {#each admin_levels as level}
         <div><b>Admin {level}</b></div>
       {/each}
 
       <div><b>{scoreHeaders.geometry_valid}</b></div>
-      {#each admin_levels as _}<div />{/each}
+      {#each admin_levels as _}<div></div>{/each}
 
       <div>{checkDescriptions['geom_count']}</div>
       {#each admin_levels as level}
@@ -206,7 +206,7 @@
       {/each}
 
       <div><b>{scoreHeaders.geometry_topology}</b></div>
-      {#each admin_levels as _}<div />{/each}
+      {#each admin_levels as _}<div></div>{/each}
 
       <div>{checkDescriptions['geom_gaps']}</div>
       {#each admin_levels as level}
@@ -241,6 +241,13 @@
         </div>
       {/each}
 
+      <div>{checkDescriptions['pcode_mismatch']}</div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['pcode_mismatch']}>
+          {format(',.0f')(checks[level]['pcode_mismatch'])}
+        </div>
+      {/each}
+
       <div>{checkDescriptions['geom_within_name_mismatch']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['geom_within_name_mismatch']}>
@@ -248,8 +255,15 @@
         </div>
       {/each}
 
+      <div>{checkDescriptions['name_mismatch']}</div>
+      {#each admin_levels as level}
+        <div class:low={checks[level]['name_mismatch']}>
+          {format(',.0f')(checks[level]['name_mismatch'])}
+        </div>
+      {/each}
+
       <div><b>{scoreHeaders.geometry_area}</b></div>
-      {#each admin_levels as _}<div />{/each}
+      {#each admin_levels as _}<div></div>{/each}
 
       <div>{checkDescriptions['geom_bounds']}</div>
       {#each admin_levels as _}
@@ -270,7 +284,7 @@
       {/each}
 
       <div><b>{scoreHeaders.area_sqkm}</b></div>
-      {#each admin_levels as _}<div />{/each}
+      {#each admin_levels as _}<div></div>{/each}
 
       <div>{checkDescriptions['area_sqkm']}</div>
       {#each admin_levels as level}
@@ -290,7 +304,7 @@
       {/each}
 
       <div><b>{scoreHeaders.table_pcodes}</b></div>
-      {#each admin_levels as _}<div />{/each}
+      {#each admin_levels as _}<div></div>{/each}
 
       <div>{checkDescriptions['pcode_column_levels']}</div>
       {#each admin_levels as level}
@@ -342,7 +356,7 @@
       {/each}
 
       <div><b>{scoreHeaders.table_names}</b></div>
-      {#each admin_levels as _}<div />{/each}
+      {#each admin_levels as _}<div></div>{/each}
 
       <div>
         How many Admin 0 names don't match their <a href="https://unterm.un.org/unterm2/en/country"
@@ -458,7 +472,7 @@
       {/each}
 
       <div><b>{scoreHeaders.languages}</b></div>
-      {#each admin_levels as _}<div />{/each}
+      {#each admin_levels as _}<div></div>{/each}
 
       <div>{checkDescriptions['languages']}</div>
       {#each admin_levels as level}
@@ -498,7 +512,7 @@
       {/each}
 
       <div><b>{scoreHeaders.date}</b></div>
-      {#each admin_levels as _}<div />{/each}
+      {#each admin_levels as _}<div></div>{/each}
 
       <div>{checkDescriptions['date']}</div>
       {#each admin_levels as level}
@@ -515,7 +529,7 @@
       {/each}
 
       <div><b>{scoreHeaders.valid_on}</b></div>
-      {#each admin_levels as _}<div />{/each}
+      {#each admin_levels as _}<div></div>{/each}
 
       <div>{checkDescriptions['valid_on']}</div>
       {#each admin_levels as level}
@@ -549,7 +563,7 @@
       {/each}
 
       <div><b>{scoreHeaders.other}</b></div>
-      {#each admin_levels as _}<div />{/each}
+      {#each admin_levels as _}<div></div>{/each}
 
       <div>{checkDescriptions['ref_name_columns']}</div>
       {#each admin_levels as level}

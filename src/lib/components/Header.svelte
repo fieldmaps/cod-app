@@ -3,7 +3,7 @@
   import { getCSV } from '$lib/utils';
   import { onMount } from 'svelte';
 
-  let date = new Date();
+  let date = $state(new Date());
 
   const options = {
     year: 'numeric',

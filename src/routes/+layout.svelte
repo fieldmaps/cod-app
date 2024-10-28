@@ -2,11 +2,16 @@
   import { PUBLIC_HASH } from '$env/static/public';
   import 'normalize.css';
   import { onMount } from 'svelte';
+  interface Props {
+    children?: import('svelte').Snippet;
+  }
+
+  let { children }: Props = $props();
 
   const localStoragePassword = 'fieldmaps-password';
 
-  let password: string | null = null;
-  let mounted = false;
+  let password: string | null = $state(null);
+  let mounted = $state(false);
 
   function hash(s: string | null) {
     return s
@@ -31,7 +36,7 @@
 </script>
 
 {#if hash(password) === PUBLIC_HASH}
-  <slot />
+  {@render children?.()}
 {:else if mounted}
   <form>
     <input hidden type="text" autocomplete="username" value="" />
@@ -39,7 +44,7 @@
       Password:
       <input
         bind:value={password}
-        on:input={onChange}
+        oninput={onChange}
         type="password"
         autocomplete="current-password"
         autofocus

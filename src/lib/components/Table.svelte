@@ -5,7 +5,7 @@
   import { format } from 'd3-format';
   import { onMount } from 'svelte';
 
-  let rows = [];
+  let rows = $state([]);
 
   onMount(async () => {
     const metadata = await getCSV('tables/metadata');
@@ -48,31 +48,19 @@
 <section>
   {#if rows.length}
     <table class="table">
-      <tr>
-        <td /><td /><td />
-        {#each Object.keys(scoreHeaders) as key}
-          <td class="center" on:click={() => setTimeout(() => toggleColumn(key))}>
-            <input type="checkbox" bind:checked={$visibleColumns[key]} />
-          </td>
-        {/each}
-        <td />
-      </tr>
-      <tr>
-        {#each [['name', 'Name'], ['iso3', 'Code'], ['itos_service', 'Status']] as [key, value]}
-          <th on:click={() => sortRows(key)}>
-            {value}
-            {#if $sortKey === key}
-              {#if $sortDirection === 1}
-                ▲
-              {:else if $sortDirection === -1}
-                ▼
-              {/if}
-            {/if}
-          </th>
-        {/each}
-        {#each Object.entries(scoreHeaders) as [key, value]}
-          {#if $visibleColumns[key]}
-            <th on:click={() => sortRows(key)} title={scoreDescriptions[key]}>
+      <thead>
+        <tr>
+          <td></td><td></td><td></td>
+          {#each Object.keys(scoreHeaders) as key}
+            <td class="center" onclick={() => setTimeout(() => toggleColumn(key))}>
+              <input type="checkbox" bind:checked={$visibleColumns[key]} />
+            </td>
+          {/each}
+          <td></td>
+        </tr>
+        <tr>
+          {#each [['name', 'Name'], ['iso3', 'Code'], ['itos_service', 'Status']] as [key, value]}
+            <th onclick={() => sortRows(key)}>
               {value}
               {#if $sortKey === key}
                 {#if $sortDirection === 1}
@@ -82,53 +70,69 @@
                 {/if}
               {/if}
             </th>
-          {:else}
-            <td />
-          {/if}
-        {/each}
-        <th on:click={() => sortRows('score')}>
-          Score
-          {#if $sortKey === 'score'}
-            {#if $sortDirection === 1}
-              ▲
-            {:else if $sortDirection === -1}
-              ▼
-            {/if}
-          {/if}
-        </th>
-      </tr>
-      {#each rows as row}
-        <tr>
-          <td>{row.name}</td>
-          <td>
-            {#if row.score}
-              <a href={`/report/${row.iso3.toLowerCase()}`}>
-                {row.iso3}
-              </a>
-            {:else}
-              {row.iso3}
-            {/if}
-          </td>
-          <td
-            class:low={row.itos_service === null}
-            class:medium={row.itos_service === 'COD_NO_GEOM_CHECK'}
-          >
-            {getCodQuality(row.itos_service)}
-          </td>
-          {#each Object.keys(scoreHeaders) as key}
+          {/each}
+          {#each Object.entries(scoreHeaders) as [key, value]}
             {#if $visibleColumns[key]}
-              <td class={`cell ${classifyScore(row[key] || 0)}`}>
-                {format('.0%')(row[key] || 0)}
-              </td>
+              <th onclick={() => sortRows(key)} title={scoreDescriptions[key]}>
+                {value}
+                {#if $sortKey === key}
+                  {#if $sortDirection === 1}
+                    ▲
+                  {:else if $sortDirection === -1}
+                    ▼
+                  {/if}
+                {/if}
+              </th>
             {:else}
-              <td />
+              <td></td>
             {/if}
           {/each}
-          <td class={`cell ${classifyScore(row.score || 0)}`}>
-            {format('.0%')(row.score || 0)}
-          </td>
+          <th onclick={() => sortRows('score')}>
+            Score
+            {#if $sortKey === 'score'}
+              {#if $sortDirection === 1}
+                ▲
+              {:else if $sortDirection === -1}
+                ▼
+              {/if}
+            {/if}
+          </th>
         </tr>
-      {/each}
+      </thead>
+      <tbody>
+        {#each rows as row}
+          <tr>
+            <td>{row.name}</td>
+            <td>
+              {#if row.score}
+                <a href={`/report/${row.iso3.toLowerCase()}`}>
+                  {row.iso3}
+                </a>
+              {:else}
+                {row.iso3}
+              {/if}
+            </td>
+            <td
+              class:low={row.itos_service === null}
+              class:medium={row.itos_service === 'COD_NO_GEOM_CHECK'}
+            >
+              {getCodQuality(row.itos_service)}
+            </td>
+            {#each Object.keys(scoreHeaders) as key}
+              {#if $visibleColumns[key]}
+                <td class={`cell ${classifyScore(row[key] || 0)}`}>
+                  {format('.0%')(row[key] || 0)}
+                </td>
+              {:else}
+                <td></td>
+              {/if}
+            {/each}
+            <td class={`cell ${classifyScore(row.score || 0)}`}>
+              {format('.0%')(row.score || 0)}
+            </td>
+          </tr>
+        {/each}
+      </tbody>
     </table>
   {/if}
 </section>

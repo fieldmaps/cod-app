@@ -47,10 +47,14 @@ export const checkDescriptions = {
   geom_gaps: 'Are there any sliver gaps within the layer?',
   geom_overlaps_self: 'How many polygons overlap each other within the same layer?',
   geom_not_within_parent: "How many polygons aren't fully contained within their parent?",
+  pcode_mismatch:
+    'How many polygons list a P-Code different than the one their parent has? (match by attributes)',
   geom_within_pcode_mismatch:
-    'How many polygons list a P-Code different than the one their parent has?',
+    'How many polygons list a P-Code different than the one their parent has? (match by location)',
+  name_mismatch:
+    'How many polygons list a name different than the one their parent has?  (match by attributes)',
   geom_within_name_mismatch:
-    'How many polygons list a name different than the one their parent has?',
+    'How many polygons list a name different than the one their parent has? (match by location)',
   pcode_column_levels:
     'How many admin levels (eg. ADM2) are represented with P-Code columns? (eg. ADM2_PCODE)',
   pcode_empty: 'How many P-Codes are empty?',
