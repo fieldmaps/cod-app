@@ -108,7 +108,7 @@
       <div>{metadata.hdx_source_1}</div>
       <div><b>Licence:</b></div>
       <div>{metadata.hdx_license}</div>
-      <div><b>Caveats:</b></div>
+      <div><b>Caveats / Comments:</b></div>
       <div>{metadata.hdx_caveats}</div>
     </div>
   </section>
