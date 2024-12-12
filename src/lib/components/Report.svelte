@@ -222,12 +222,12 @@
         </div>
       {/each}
 
-      <div>{checkDescriptions['geom_has_triangle']}</div>
+      <!-- <div>{checkDescriptions['geom_has_triangle']}</div>
       {#each admin_levels as level}
         <div class:low={checks[level]['geom_has_triangle']}>
           {format(',.0f')(checks[level]['geom_has_triangle'])}
         </div>
-      {/each}
+      {/each} -->
 
       <div>{checkDescriptions['geom_overlaps_self']}</div>
       {#each admin_levels as level}
