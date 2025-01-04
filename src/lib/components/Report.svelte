@@ -74,11 +74,11 @@
           <a href={metadata.hdx_url}>HDX</a>
         {/if}
       </div>
-      <div><b>Download Boundaries (GPKG):</b></div>
+      <div><b>Download Boundaries (GeoParquet):</b></div>
       <div>
         {#each admin_levels as level}
           <a
-            href={`https://cod-data.fieldmaps.io/boundaries/${iso3.toLowerCase()}_adm${level}.gpkg`}
+            href={`https://cod-data.fieldmaps.io/boundaries/${iso3.toLowerCase()}_adm${level}.parquet`}
           >
             {`Admin ${level}`}
           </a>&nbsp;
