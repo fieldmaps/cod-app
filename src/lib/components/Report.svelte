@@ -418,7 +418,7 @@
 
       <div>{checkDescriptions['name_empty']}</div>
       {#each admin_levels as level}
-        <div class:low={checks[level]['name_empty']}>
+        <div class:medium={checks[level]['name_empty']}>
           {format(',.0f')(checks[level]['name_empty'])}
         </div>
       {/each}
