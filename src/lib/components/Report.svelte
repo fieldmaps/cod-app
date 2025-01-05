@@ -473,21 +473,21 @@
 
       <div>{checkDescriptions['name_invalid']}</div>
       {#each admin_levels as level}
-        <div class:low={checks[level]['name_invalid']}>
+        <div class:medium={checks[level]['name_invalid']}>
           {format(',.0f')(checks[level]['name_invalid'])}
         </div>
       {/each}
 
       <div>{checkDescriptions['name_invalid_char_count']}</div>
       {#each admin_levels as level}
-        <div class:low={checks[level]['name_invalid_char_count']}>
+        <div class:medium={checks[level]['name_invalid_char_count']}>
           {format(',.0f')(checks[level]['name_invalid_char_count'])}
         </div>
       {/each}
 
       <div>{checkDescriptions['name_invalid_chars']}</div>
       {#each admin_levels as level}
-        <div class:low={checks[level]['name_invalid_chars']}>
+        <div class:medium={checks[level]['name_invalid_chars']}>
           {#if checks[level]['name_invalid_char_count'] > 0 && checks[level]['name_invalid_char_count'] <= 10}
             {#each checks[level]['name_invalid_chars'].split(',') as code}
               <div>
