@@ -102,6 +102,24 @@
       <div>{metadata.iso3}</div>
       <div><b>ISO-2 Code:</b></div>
       <div>{metadata.iso2}</div>
+      <div><b>ITOS Updated:</b></div>
+      <div>
+        {#if metadata.itos_update}
+          {metadata.itos_update.toLocaleDateString('en-GB', options)}
+        {/if}
+      </div>
+      <div><b>HDX Dataset Date:</b></div>
+      <div>
+        {#if metadata.hdx_date}
+          {metadata.hdx_date.toLocaleDateString('en-GB', options)}
+        {/if}
+      </div>
+      <div><b>HDX Dataset Modified:</b></div>
+      <div>
+        {#if metadata.hdx_update}
+          {metadata.hdx_update.toLocaleDateString('en-GB', options)}
+        {/if}
+      </div>
       <div><b>Data Contributor:</b></div>
       <div>{metadata.hdx_source_2}</div>
       <div><b>Data Source:</b></div>
