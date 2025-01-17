@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { page } from '$app/stores';
-  import { checkDescriptions, scoreDescriptions, scoreHeaders } from '$lib/consts';
-  import { classifyScore, getCSV, getCodQuality, range } from '$lib/utils';
+  import { page } from '$app/state';
+  import { checkDescriptions, scoreDescriptions, scoreHeaders } from '$lib/consts.svelte';
+  import { classifyScore, getCSV, getCodQuality, range } from '$lib/utils.svelte';
   import { format } from 'd3-format';
   import { onMount } from 'svelte';
 
-  const iso3 = $page.params.slug.toUpperCase();
+  const iso3 = page.params.slug.toUpperCase();
   const options = {
     year: 'numeric',
     month: 'short',
@@ -358,28 +358,28 @@
 
       <div>{checkDescriptions['pcode_lengths']}</div>
       {#each admin_levels as level}
-        <div class:medium={checks[level]['pcode_lengths'] > 1}>
+        <div class:high={checks[level]['pcode_lengths'] > 1}>
           {format(',.0f')(checks[level]['pcode_lengths'])}
         </div>
       {/each}
 
       <div>{checkDescriptions['pcode_not_iso2']}</div>
       {#each admin_levels as level}
-        <div class:medium={checks[level]['pcode_not_iso2']}>
+        <div class:high={checks[level]['pcode_not_iso2']}>
           {format(',.0f')(checks[level]['pcode_not_iso2'])}
         </div>
       {/each}
 
       <div>{checkDescriptions['pcode_not_alnum']}</div>
       {#each admin_levels as level}
-        <div class:medium={checks[level]['pcode_not_alnum']}>
+        <div class:high={checks[level]['pcode_not_alnum']}>
           {format(',.0f')(checks[level]['pcode_not_alnum'])}
         </div>
       {/each}
 
       <div>{checkDescriptions['pcode_not_nested']}</div>
       {#each admin_levels as level}
-        <div class:medium={checks[level]['pcode_not_nested']}>
+        <div class:high={checks[level]['pcode_not_nested']}>
           {format(',.0f')(checks[level]['pcode_not_nested'])}
         </div>
       {/each}
@@ -461,6 +461,16 @@
             checks[level]['name_cell_count']}
         >
           {format(',.0f')(checks[level]['name_lower'])}
+        </div>
+      {/each}
+
+      <div>{checkDescriptions['name_numbers']}</div>
+      {#each admin_levels as level}
+        <div
+          class:medium={checks[level]['name_numbers'] * checks[level]['name_column_count'] >=
+            checks[level]['name_cell_count']}
+        >
+          {format(',.0f')(checks[level]['name_numbers'])}
         </div>
       {/each}
 
@@ -646,7 +656,8 @@
     }
   }
   main {
-    margin: 1rem auto 5rem auto;
+    margin: 1rem auto 0 auto;
+    padding-bottom: 5rem;
     max-width: 1024px;
   }
   section {

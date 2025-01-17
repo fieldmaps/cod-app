@@ -1,4 +1,4 @@
-import { baseURL } from '$lib/consts';
+import { baseURL } from '$lib/consts.svelte';
 import { autoType, csvParse, csvParseRows } from 'd3-dsv';
 
 export async function getJSON(file: string) {

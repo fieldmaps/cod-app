@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { baseURL } from '$lib/consts';
-  import { getCSV } from '$lib/utils';
+  import { baseURL } from '$lib/consts.svelte';
+  import { getCSV } from '$lib/utils.svelte';
   import { onMount } from 'svelte';
 
   let date = $state(new Date());

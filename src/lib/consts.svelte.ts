@@ -8,7 +8,6 @@ export const scoreHeaders = {
   table_names: 'Names',
   languages: 'Languages',
   date: 'Date',
-  valid_on: 'Valid On',
   area_sqkm: 'Sq. km',
   other: 'Other',
 };
@@ -29,7 +28,6 @@ export const scoreDescriptions = {
   languages:
     "Layers which have at least 1 language column detected, all language codes used are valid, a romanized language is featured first, and layers don't have more languages than their parents.",
   date: 'Layers which have a valid date value for their source.',
-  valid_on: 'Layers which have been validated on within the last 12 months.',
   other: 'Layers which have no fields other than expected values.',
 };
 
@@ -74,6 +72,7 @@ export const checkDescriptions = {
   name_spaces_strip: 'How many names have leading or trailing spaces?',
   name_upper: 'How many names are all uppercase?',
   name_lower: 'How many names are all lowercase?',
+  name_numbers: 'How many names contain numbers?',
   name_no_valid:
     "How many names don't contain any alphabetic characters? (eg. all numbers or punctuation)",
   name_invalid_adm0: "How many Admin 0 names don't match the official UNTERM short name?",
