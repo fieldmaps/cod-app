@@ -141,6 +141,7 @@
   section {
     margin: 1rem auto;
     overflow: auto;
+    padding-bottom: 5rem;
   }
   table {
     margin: auto;
